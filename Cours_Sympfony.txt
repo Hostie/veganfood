@@ -1,0 +1,560 @@
+https://drive.google.com/drive/folders/16ydbqBKjNBsmugW08MztLOfHcoOp_FnA
+------
+SYMFONY :
+
+ETAPE 1 : Installation de SF 4
+ETAPE 2 : Routes et les controllers
+ETAPE 3 : Entity et DOCTRINE ORM (mapping)
+ETAPE 4 : Twig et les assets
+ETAPE 5 : Doctrine DBAL
+ETAPE 6 : Les formulaires
+ETAPE 7 : Sécurité et utilisateurs
+ETAPE 8 : Association Mapping
+----------------
+
+Délégué : jeremy.richard@ynov.com
+
+ETAPE 1 : Installation de SF 4
+
+1/ Composer
+
+ - Composer est un gestionnaire de dépendances (composants, services). Il nous permet d'installer et de mettre à jour une app SF.
+ - www.getcomposer.org
+
+2/ Installation
+
+    <cmd>
+    composer create-project symfony/website-skeleton Blog
+
+3/ Architecture des fichiers et dossiers
+
+    Bin/ : Les éxécutables de notre app (SF)
+    Config/ : Les configurations de notre app
+    src/ : Code PHP/SQL de notre app (code propriétaire)
+    vendor/ : Code source de SF
+    Tests/ : Pour effectuer les tests unitaires
+    Translations/ : Pour les fichiers traductions
+    Templates/ : Toute la partie vues (HTML) de notre app
+    public/ : Le repertoire web (index.php, css, js, fonts, img)
+    var/ : Les fichiers écrit durant le script
+    composer.json
+    .env
+
+4/ lancement de notre app
+
+    <cmd>
+    cd Blog
+    php bin/console server:run
+
+
+ETAPE 2 : Routes et les controllers
+
+    - Les routes ce sont les URL, les fonctionnalités, les pages...
+
+    1/ Création d'un controller
+    <cmd>
+    php bin/console make:controller
+
+    2/ Les différentes routes
+        - @Route("/bonjour")  == route avec affichage + erreur
+        - @Route("/hello") == route avec affichage sans erreur (objet Response)
+        - @Route("/hola/{prenom}") == route avec response + donnée dynamique
+        - @Route("/ciao/{prenom}") == route avec vue + donnée dynamique
+        - @Route("/redirect") == route avec redirection
+        - @Route("/message") == route avec message flash
+
+
+    3/ L'objet Response
+        <code>
+        use Symfony\Component\HttpFoundation\Response;
+
+        - Le protocol HTTP requiert une requete et une reponse. L'objet Response en est la réponse.
+
+        - L'objet response peut gérer (par exemple) l'affichage de l'entête de la page
+
+    4/ L'objet Request
+        <code>
+        use Symfony\Component\HttpFoundation\Response;
+
+        - L'objet request représente la partie Requete du protocle HTTP.
+
+        - Il permet de gérer : session, post, get, cookies, server...
+
+    5/ La redirection
+
+        - La redirection est utile lorsqu'un utilisateur a effectué une action qui requiert que la page (ou une autre page) soit chargée
+
+    6/ Les messages flash
+
+        - Les message en session (flash) sont utiles pour afficher des informations à l'utilisateur (client ou admin). Tout est automatisé avec SF et le controller.
+
+
+        ===> A ce stade nous avons crée le PostController et lee premières route que l'on va développer.
+
+-----------------------------------------
+ETAPE 3 : Entity et DOCTRINE ORM (mapping)
+
+ 1/ Qu'est ce que les entités
+
+        DOCTRINE ORM : Objet Relationnal Mapping
+
+        - Doctrine nous permet de manipuler des objets au lieu d'interagir directement avec la BDD. Pour que cela soit possible il faut expliquer à Doctrine que nos objets (entités) correspondent aux tables dans ma BDD (Mapping)
+
+        - Avec Doctrine, nous ne ferons plus de SQL, et nous ne mettrons plus les mains dans PHP my admin :)
+
+ 2/ Générer nos entités en ligne de commande
+
+    <cmd>
+    php bin/console make:entity
+
+    -> On suit les étapes pour la création de nos entités
+
+    Le Mapping : Documentation de Doctrine
+
+    Basic mapping : https://www.doctrine-project.org/projects/doctrine-orm/en/2.6/reference/basic-mapping.html
+
+    Association mapping : https://www.doctrine-project.org/projects/doctrine-orm/en/2.6/reference/association-mapping.html
+
+ 3/ Générer la base de données
+
+    A/ Se connecter à la BDD
+        .env : On saisi les infos de connexion (root, mdp, server, port db-name)
+
+
+    B/ Créer la BDD
+
+        <cmd>
+        php bin/console doctrine:database:create
+        php bin/console make:migration
+        php bin/console doctrine:migrations:migrate
+
+ 4/ Générer les entités depuis la BDD
+
+    - On peut créer les entities, sur la base d'une BDD déjà existante
+
+    <cmd>
+    php bin/console doctrine:mapping:import "App\Entity" annotation --path=src/Entity
+    php bin/console make:entity --regenerate App\Entity
+
+
+
+ 5/ Les fixtures pour créer du contenu en BDD
+
+    - Les fixtures permettent d'ajouter du contenu (fake ou aléatoire) dans notre site.
+
+    <cmd>
+    composer require fixtures-ORM --env=dev
+
+    -> Dans le fichier src/DataFixtures/AppFixtures on créé des boucles pour ajouter du contenu à la BDD.
+
+    /!\ On n'oublie pas de Use les entity que l'on utilise.
+
+    <cmd>
+    php bin/console doctrine:fixtures:load
+
+    La base de données n'est plus vide, elle est complété par des données... Cette commande permet de remettre à défaut les données dans la BDD : Pratique avant une présentation du projet au client final.
+
+
+
+ETAPE 4 : Twig et les assets
+
+    - Twig est un moteur de template. Il permet d'afficher du (variables PHP) facilement dans des fichiers de vue (html.twig). Il existe d'autres moteurs de templates (blade, tpl, smarty). Twig a été créé par SensioLabs, mais on peut l'utilise sur tout projet PHPOO.
+
+
+1/ Affichage des variables
+
+        <?= $prenom ?>
+        {{ prenom }}
+
+        <?= $user['prenom'] ?>
+        {{ user.prenom }}
+
+        <?= ucfirst('toto') ?>
+        {{ 'toto' | capitalize }}
+
+        filtre : date, upper, lower, slice, capitalize, number_format...
+
+2/ Héritage Twig
+3/ Boucles
+
+    - foreach
+    <?php foreach($array as $value) : ?>
+    <?php endforeach ?>
+
+    {% for value in array %}
+    {% endfor %}
+
+    - for / while
+    <?php for($i=1; $i <= 10; $i++) : ?>
+    <?php endfor ?>
+
+    {% for i in 1..10 %}
+    {% endfor %}
+
+
+4/ Conditions
+5/ Assets
+
+    - Les assets permettent d'effectuer des liens absolue vers des ressources (css, images, JS, fonts...). La fonction asset cible le dossier public/
+
+    src="../../../../public/photo/<?= $p['image'] ?>"
+    src="{{ asset('/photo/' ~ p.image ) }}"
+
+
+6/ lien
+
+    - La fonction path() nous permet de créer un lien vers une route, en ciblant le nom de la route et non le chemin. Les URLs peuvent donc être modifiées, les liens fonctionneront toujours.
+
+    href="inscription.php"
+    href="index.php?action=inscription"
+    href="{{ path('inscription') }}"
+
+    - liens dynamiques :
+
+    href="post.php?id=<?= $p['id'] ?>"
+    href="{{ path('post', {id : p.id } ) }}"
+        - post  ---> nom de la route
+        - id    ---> paramètre dynamique
+        - p.id  ---> valeur du paramètre dynamique
+
+
+7/ doc
+
+8/ Heritage et layout
+
+lien : https://twig.symfony.com/doc/2.x/
+
+
+ETAPE 5 : Doctrine DBAL
+1/ Kezako ?
+
+    DBAL : DataBase Abstract Layer
+    Doctrine DBAL est sur-couche à PDO (connexion, requete, fetch)
+
+
+2/ Accéder au service Doctrine
+
+    Methode 1 : repository
+        Post     -> PostRepository  --> table Post
+        User     -> UserRepository  --> table user
+        Comment  -> CommentRepository  --> table comment
+
+        <code>
+        $repo = $this -> getDoctrine() -> getRepository(Post::class);
+        Post::class  --> App\Entity\Post
+
+    Methode 2 : Manager
+
+        Le manager permet d'interagir avec toutes les tables (EntityManager, EntityRepository)
+
+        <code>
+        $manager = $this -> getDoctrine() -> getManager();
+
+
+
+3/ SELECT * FROM ... (findAll())
+
+    - La fonction findAll() du repository nous permet de récupérer toutes les entrées d'une table.
+
+4/ SELECT * FROM ... WHERE id = ...  (find($id))
+
+    - La fonction find($id) permet de récupérer une entré par son ID
+
+    /!\ Utilisée depuis le manager elle prend en 1er argument l'entité find(Post::class, $id)
+
+5/ SELECT * FROM ... WHERE ...  = ...
+
+    findBy() permet de récupérer des entrée en fonction d'un champs particulier, et d'une valeur donnée.
+
+    findOneBy() permet une entrée (la 1ere) en fonction d'un champs particulier, et d'une valeur donnée.
+
+    <code>
+    $repo = findBy(
+        ['category' => 'tshirt',
+            'color' => 'rouge',
+            'size' => 'L'
+        ]
+        ,
+        ['prix' => 'DESC'
+        ],
+        10 ,0 );
+
+
+    La fonction findBy() est très complète et permet de faire des filtres/tris (ex : vente de voyage). Pour prendre la mesure de ce qu'il est possible de faire RDV sur la doc.
+
+
+6/ INSERT / UPDATE
+
+    <code>
+    $post = new Post;
+    $post -> setXXX();
+    $manager -> persist($post);
+    $manager -> flush();
+
+    Pour ajouter un post, on crée un objet vide. On le persist grâce au manager afin de le "rentrer dans le system". La fonction flush du manager permet d'enregistrer en BDD.
+    Ce sont les informations du formulaire qui viendront (plus tard) alimenter l'objet vide.
+
+    La modification d'une entrée se passe de la même manière à ceci près que l'objet persisté n'est pas vide mais remplie. Il viendra alimenter les champs du formulaire (plus tard), on parle d'hydrater le formulaire.
+
+7/ DELETE
+    <code>
+    $post = $manager -> find(Post::class, $id)
+    $manager -> remove($post);
+    $manager -> flush();
+
+    Pour supprimer une entrée il faut d'abord la récupérer. Puis la fonction remove() du manager permet de le supprimer de la BDD.
+
+8/ Requete perso Query Builder (PHP) et/ou Create Query (DQL)
+
+
+    Doctrine nous fournit plusieurs outils pour exécuter des requêtes directement en PHP (find() etc..)
+    Cela-dit, notre projet va avoir des requêtes plus spécifiques (distinct, jointure, AND/OR etc... ), il nous faut donc des outils plus poussés.
+
+    -> QueryBuilder() : nous permet de créer des requêtes spécifiques en PHP
+
+    <code> controller
+    $manager -> createQueryBuilder()
+
+    <code> repository
+    $this -> createQueryBuilder()
+
+    -> CreateQuery() : Nous permet de créer des requêtes spécifiques en SQL (DQL : Doctrine Query Language)
+
+    <code>controller
+    $this -> createQuery("SELECT * FROM ...")
+
+    <code>Repository
+    $this -> getEntityManager() -> createQuery("SELECT * FROM ...");
+
+
+    CF : PostRepository
+
+
+    --------------------------------------------------
+    ETAPE 6 : Les formulaires et validation des données
+    Sommaire :
+    1/ Le fonctionnement des formulaires sur SF
+    2/ Générer les formulaire
+    3/ Récupérer les données des formulaires
+    4/ personnaliser avec Bootstrap
+    5/ Update un enregistrement
+    6/ Validation des données
+    7/ Champs file
+    8/ Lien vers doc
+    -----------------------------------
+    1/ Le fonctionnement des formulaires sur SF
+
+    	De la même manière qu'on ne manipule pas des tables de la BDD, mais des entités (objets), chaque formulaire est lié à une entité.
+
+    	Ainsi un formulaire est lié à un objet :
+
+    	Inscription ----------> objet User
+    	Ajout de post -----> objet Post
+    	Modifier un post --> objet Post
+
+    2/ Générer les formulaire
+
+    	<cmd>
+    	php bin/console make:form
+    	PostType (nom de la classe)
+    	Post (Entity correspondante)
+
+
+    3/ Récupérer les données des formulaires
+
+    	A. Dans le controller il faut le formulaire
+    	<code>
+    	use App\Form\PostType;
+    	$form = $this -> createForm(PostType::class, $post);
+
+
+    	B. On génère la vue du formulaire
+    	<code>php
+    	'postForm' => $form -> createView
+
+    	<code>twig
+    	form(postForm) ---> Tout le formulaire
+
+    	C. Dans le controller
+    	<code>
+    	$form -> handleRequest($request);
+    	/!\ Cette ligne est importante pour pouvoir récupérer les données en POST.
+
+    	if($form -> isSubmitted() && $form -> isValid())
+
+
+    4/ personnaliser avec Bootstrap
+
+    	<code>Config/twig.yaml
+    	twig:
+    		form_themes:
+    			- 'bootstrap_4_layout.html.twig'
+
+    5/ Update un enregistrement
+
+    	Pour update un enregistrement, on procède de la même manière que pour enregistrer une entrée... la différence est que l'objet lié au formulaire n'est pas vide. On dit qu'il hydrate le formulaire.
+
+    6/ Validation des données
+
+    	- De base les formulaire sont générés de manière un peu basique. Pour gérer nous-même les contraintes (type de données, taille des données) et la sécurité, on doit définir les ASSERT.
+
+    		1/ Directement en PHP dans les classes Types :
+    			- CF src/Form/PostTypes.php
+
+    		2/ Dans les entités en annotations :
+    			- CF src/Entity/Post.php
+
+
+    7/ Champs file
+
+    	Pour la gestion des photos il faut deux choses :
+    		1/ enregistrer le nom de l'image en BDD
+    		2/ enregistrer la photo elle-même (octets) sur le serveur.
+
+    	Cf function uploadFile() dans l'entité Post
+
+
+    Liens :
+
+    FORMS : https://symfony.com/doc/current/reference/forms/types.html
+    Validation des données : https://symfony.com/doc/current/validation.html
+
+
+    ----------------------------------
+    ETAPE 7 : Sécurité et utilisateur
+    Sommaire
+    1/ Niveaux de sécurité
+    2/ Le fichier de sécurité (security.yaml)
+    3/ Création routes (connexion, deconnexion, connexion_check)
+    4/ Classe Membre + BDD (username, password, roles, salt)
+    5/ Layout
+    ----------------------------------
+    1/ Niveaux de sécurité
+
+    	- De base SF, va considérer un visiteur lambda, comme ANONYME
+    	- Utilisateur : 	ROLE_USER
+    	- Admin : 			ROLE_ADMIN
+    	- Super Admin : 	ROLE_SUPER_ADMIN
+
+    	SF fonctionne avec pare-feu
+
+    	-> On définit les routes que peuvent emprunter les != roles.
+
+    		- si un user anonyme --> Homepage  = OK
+    		- Si un user anonyme --> profil    = Connexion = profil
+    		- Si ROLE_USER  --> profil = OK
+    		- Si ROLE_USER --> Admin/produit = 404
+    		- Si ANON      --> Admin/produit = Connexion  = 404
+
+    2/ Le fichier de sécurité (security.yaml)
+
+    	<code>app/config/security.yaml
+
+    	On définie plusieurs choses :
+    	- encoders (la manière dont les password seront encodés)
+    	- provider (quelle ressource va servir d'utilisateur : MembreEntity, le login: username)
+    	- Hierarchie : La pyramide des droits
+    	- les routes form_login et logout (voir le point suivant)
+    	- Access control : qui a le droit à quoi
+
+
+    	/!\ Attention le YAML est très sensible aux indentations et aux espaces.
+
+
+    3/ Creation des routes
+
+    	form_login:
+    		login_path: connexion (page de connexion)
+
+    		check_path: connexion_check (Page de checking de login/password, on doit juste la créée, et la mettre dans l'attribut action de notre formulaire de connexion)
+
+    		default_target_path: homepage (La page par défaut sur laquelle on est dirigé une fois connecté. Sinon le parefeu prend le dessus)
+
+    	logout:
+    		path: deconnexion (La route de deconnexion. Doit exister mais est vide)
+    		target: homepage (page de destination, lorsqu'on se déconnecte).
+
+
+    4/ Classe Membre (implements UserInterface)
+
+    	- A partir de maintenant la classe Membre doit implements l'interface UserInterface
+
+
+    	--> username (getter/setter)
+    	--> password (getter/setter)
+    	--> role (getter/setter)
+    	--> salt (getter/setter)
+
+
+    	/!\ Attention lors de l'inscription, il faut penser à définir un role_user par défaut (MembreController -> route inscription.
+
+    	--> public function eraseCredentials() : fonction obligatoire pour que SF prenne la main.
+
+    	--> getRoles est une fonction obligatoire qui retourne le role sous la forme d'un array
+
+
+    5/ Layout
+
+    	Dans les vues on fait la distinction entre le niveau d'acces des utilisateur avec :
+
+    	{% if is_granted('IS_AUTHENTICATED_FULLY') %}  : tout le monde (sauf anonyme)
+    	{% if is_granted('ROLE_USER') %}  : tous les users
+    	{% if is_granted('ROLE_ADMIN') %}  : tous les admin
+    	{% if not is_granted('IS_AUTHENTICATED_FULLY') %}  : les anonymes
+
+    	{{ app.user.username }} : app.user correspond aux infos de l'utilisateur actuellement connecté
+
+
+    ===> Le salage c'est l'idée de rendre un MDP quasiment inviolable en ajoutant au MDP soit une chaîne de caractère que seul le développeur connait (petit site, petite structure), ou alors une chaîne aléatoire pour chaque user... Ensuite pour la connexion, on récupère le salage, pour reconstituer le MDP complet.
+
+
+    Liens et Commande
+
+    - Make User : On peut créer l'entité membre en ligne de commande avec
+
+    	<cmd>
+    	php bin/console make:user
+    	-> Création de l'entité User/Membre
+    	-> implements UserInterface, getRole, setRole, getSalt, setSalt, eraseCredentials
+    	-> Security.yaml : Encoder, provider
+
+
+    - Pour le faire en dur voici quelques liens sur la doc utiles :
+
+    	https://symfony.com/doc/current/security.html
+    	https://symfony.com/doc/current/security/form_login_setup.html
+    	https://symfony.com/doc/current/security/user_provider.html
+    	https://symfony.com/doc/3.3/security/entity_provider.html
+
+
+    - Lorsqu'on utilise des comptes en memory et qu'on souhaite utiliser le cryptage on peut générer le MDP en ligne de commande :
+
+    	<cmd>
+    	php bin/console security:encode-password '123456'
+
+
+    ----------------------------------
+    ETAPE 8 : Association mapping
+    ----------------------------------
+
+    - Grâce à l'association Mapping Doctrine nous permet de gérer facilement les relations existantes entre nos objets (tables en BDD)
+
+    - Par exemple :
+        - L'objet User va contenir une liste d'objets Post (Array Collection)
+        - L'objet Post va contenir un objet User
+        - L'objet Post va contenir une liste d'objets Comments
+
+    - IL existent plusieurs types de relations :
+        - OneToMany (Un User a plusieurs Post)
+        - ManyToOne (Plusieurs Post reliés au même user)
+        - ManyToMany (Un post peut avoir plusieurs catégories et une catégorie plusieurs post)
+        - OneToOne (un user a un numéro de tel, et chaque numéro est relié à un user)
+
+    - Mise en place :
+        <cmd>
+        php bin/console make:entity
+
+        On peut alors ajouter une propriété de type "relation"
+        Le système nous guide pour la création de cette relation.
+
+        /!\ Attention : il faut néanmoins que les entités existent déjà.
