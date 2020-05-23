@@ -203,9 +203,7 @@ ETAPE 4 : Twig et les assets
 
 6/ lien
 
-    - La fonction path() nous permet de créer un lien vers une route, en ciblant le nom de la route et non le chemin. Les URLs peuvent donc être modifiées, les liens fonctionneront toujours.
-
-    href="inscription.php"
+    - La fonction path() nous permet de créer un lien vers une route, en ciblant le nom 
     href="index.php?action=inscription"
     href="{{ path('inscription') }}"
 
