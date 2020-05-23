@@ -37,13 +37,6 @@ ETAPE 1 : Installation de SF 4
     Templates/ : Toute la partie vues (HTML) de notre app
     public/ : Le repertoire web (index.php, css, js, fonts, img)
     var/ : Les fichiers écrit durant le script
-    composer.json
-    .env
-
-4/ lancement de notre app
-
-    <cmd>
-    cd Blog
     php bin/console server:run
 
 
@@ -348,18 +341,8 @@ ETAPE 5 : Doctrine DBAL
 
     	Inscription ----------> objet User
     	Ajout de post -----> objet Post
-    	Modifier un post --> objet Post
-
-    2/ Générer les formulaire
-
-    	<cmd>
-    	php bin/console make:form
-    	PostType (nom de la classe)
-    	Post (Entity correspondante)
-
-
-    3/ Récupérer les données des formulaires
-
+    	Modifier un post --> objet Post urn $this;
+    }
     	A. Dans le controller il faut le formulaire
     	<code>
     	use App\Form\PostType;
