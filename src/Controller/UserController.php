@@ -54,6 +54,18 @@ class UserController extends AbstractController
 
     }
 
+
+          /**
+     * @Route("/", name="index")
+     */
+    public function index(){
+        return $this->render('user/index.html.twig', []);
+    }
+
+
+
+
+
         /**
      * @Route("/logout", name="logout")
      */

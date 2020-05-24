@@ -1,19 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block content %}
+{% block body %}
 
-<body>
+
 <section class="search">
-    <div class="search-input">
-        <form method="get">
-            <label for="email">Enter your address </label>
-            <input type="text" name="address" id="address" required>      
+        
+        <div class="quote-image">
+        
+        
+        <h2> FAITES VOUS LIVRER CHEZ VOUS !</h2>
+        <img class="deliver-img" src="{{ asset('/img/deliver.png')}}">
+        </div>
+
+         <div class="search-address">
+        
+        <h2>Livré dans l'heure</h2>
+        <form class="search-container">
+            <input type="text" id="search-bar" placeholder="Entrez votre addresse ici !">
+            <a href="#"><img class="search-icon" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"></a>
         </form>
+
+        
+
+        
+        </div>
+
+        
+      
+        
 
     </div>
 
 </section>
-</body>
+
 {% endblock %}
 
 
