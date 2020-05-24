@@ -348,7 +348,6 @@ ETAPE 5 : Doctrine DBAL
     	use App\Form\PostType;
     	$form = $this -> createForm(PostType::class, $post);
 
-
     	B. On génère la vue du formulaire
     	<code>php
     	'postForm' => $form -> createView

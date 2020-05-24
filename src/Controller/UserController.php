@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\User;
-
+use App\Form\SignUpFormType;
+use App\Form\LoginFormType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,18 +18,43 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/sign", name="sign")
+     * @Route("/signup", name="sign")
      */
-    public function signUp(){
+    public function signUp(UserPasswordEncoderInterface $encode, Request $request){
 
-    
-        return $this->render('user/SignUp.html.twig', [
+        $usr = new User;
+
+        $form = $this -> createForm(SignUpFormType::Class, $usr);
+        $form -> handleRequest($request);
+        
+        if ($form -> isSubmitted() && $form -> isValid()) {
+
+            $manager = $this -> getDoctrine() -> getManager();
+            $manager -> persist($usr); // Enregistre l'objet dans le systeme (pas dans la BDD)
+            $usr -> setRole('ROLE_USER');
+
+            $file = $form['file']->getData();    //Si le champ est vide on considère que la photo du user sera la photo par défault.
+            if (is_object($file))
+            {
+                $usr -> fileUpload();  //Renome l'image de l'utilisateur, l'enregistre en BDD et dans le dossier public/img.
+            }
+            
+            $password = $usr -> getPassword();
+            $newPassword = $encode -> encodePassword($usr, $password);
+
+            $usr -> setPassword($newPassword);
+            $manager -> flush(); // Enregistre dans la BDD en executant la ou les requêtes enregistrées dans le systeme
+
+            return $this ->redirectToRoute('login');
+        }
+
+        return $this->render('user/signup.html.twig', [
             'SignUpForm' => $form -> createView()
         ]);
 
     }
 
-    /**
+        /**
      * @Route("/logout", name="logout")
      */
     public function Logout(){}
@@ -38,8 +65,9 @@ class UserController extends AbstractController
     public function LoginCheck(){}
 
 
+
     /**
-     * @Route("/", name="login")
+     * @Route("/sign", name="login")
      */
     public function Login(AuthenticationUtils $auth){
 
@@ -51,7 +79,7 @@ class UserController extends AbstractController
             $this -> addFlash('errors', 'Erreur d\'identifiant !');
         }
 
-        return $this -> render('user/index.html.twig', [
+        return $this -> render('user/sign.html.twig', [
             'lastUsername' => $lastUsername
         ]);
     }

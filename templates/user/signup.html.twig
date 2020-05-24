@@ -1,0 +1,10 @@
+{% extends "base.html.twig" %}
+{% form_theme SignUpForm 'bootstrap_4_layout.html.twig' %}
+{% block body %}
+
+    <div class="ml-5 mr-5">
+        {{ form_start(SignUpForm) }}
+        {{ form_widget(SignUpForm) }}
+        {{ form_end(SignUpForm) }}
+    </div>
+{% endblock %}
