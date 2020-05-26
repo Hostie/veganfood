@@ -45,7 +45,7 @@ class RestaurantController extends AbstractController
      * @Route("/restaurant/create", name="createRestaurant")
      */
 
-    public function createRestaurant(Request $request, UserInterface $user){
+    public function createRestaurant(Request $request){
 
         $restaurant = new Restaurant;
 
