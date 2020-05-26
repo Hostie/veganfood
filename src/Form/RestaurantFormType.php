@@ -17,12 +17,12 @@ class RestaurantFormType extends AbstractType
         $builder
             ->add('name')
             ->add('address')
-            ->add('zippcode')
+            ->add('zipcode')
             ->add('logo', FileType::Class, array('required' => false))
             ->add('description')
             ->add('category')
-            >add('photo', FileType::Class, array('required' => false))
-            ->add('Ajouter son restaurant', SubmitType::class, [
+            ->add('photo', FileType::Class, array('required' => false))
+            ->add('Ajouter', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-large btn-info mt-2 mb-2'
                 ]

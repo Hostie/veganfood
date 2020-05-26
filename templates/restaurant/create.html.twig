@@ -1,0 +1,11 @@
+{% extends "base.html.twig" %}
+{% form_theme RestaurantForm 'bootstrap_4_layout.html.twig' %}
+{% block body %}
+
+    <div class="ml-5 mr-5">
+        {{ form_start(RestaurantForm) }}
+        {{ form_widget(RestaurantForm) }}
+        {{ form_end(RestaurantForm) }}
+    </div>
+    
+{% endblock %}
