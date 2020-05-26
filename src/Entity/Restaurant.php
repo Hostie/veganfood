@@ -43,11 +43,6 @@ class Restaurant
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $categoy;
-
-    /**
      * @ORM\Column(type="string", length=40)
      */
     private $category;
@@ -118,18 +113,6 @@ class Restaurant
     public function setDescription(string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getCategoy(): ?string
-    {
-        return $this->categoy;
-    }
-
-    public function setCategoy(string $categoy): self
-    {
-        $this->categoy = $categoy;
 
         return $this;
     }
