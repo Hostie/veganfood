@@ -1,22 +1,13 @@
-const indicator = document.querySelector('.nav-indicator');
-const items = document.querySelectorAll('.nav-item');
-
-function handleIndicator(el) {
-  items.forEach(item => {
-    item.classList.remove('is-active');
-    item.removeAttribute('style');
+$(document).ready(function() {
+  $(document).delegate('.open', 'click', function(event){
+    $(this).addClass('oppenned');
+    event.stopPropagation();
+  })
+  $(document).delegate('body', 'click', function(event) {
+    $('.open').removeClass('oppenned');
+  })
+  $(document).delegate('.cls', 'click', function(event){
+    $('.open').removeClass('oppenned');
+    event.stopPropagation();
   });
-  
-  indicator.style.width = `${el.offsetWidth}px`;
-  indicator.style.left = `${el.offsetLeft}px`;
-  indicator.style.backgroundColor = el.getAttribute('active-color');
-
-  el.classList.add('is-active');
-  el.style.color = el.getAttribute('active-color');
-}
-
-
-items.forEach((item, index) => {
-  item.addEventListener('click', (e) => { handleIndicator(e.target)});
-  item.classList.contains('is-active') && handleIndicator(item);
 });

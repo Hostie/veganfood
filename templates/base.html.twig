@@ -15,17 +15,23 @@
     <img class="logo" src="{{ asset('/img/logo.png')}}">
      <header>
         
-        <nav class="nav">
-            <a href="#" class="nav-item is-active" active-color="orange">Home</a>
-            <a href="#" class="nav-item" active-color="orange">Restaurants</a>
-            <a href="#" class="nav-item" active-color="orange">Se connecter</a>
-            <a href="#" class="nav-item" active-color="orange">A propos</a>
-            <span class="nav-indicator"></span>
-        </nav>
+        <div class="open"> 
+          <span class="cls"></span> 
+          <span>
+            <ul class="sub-menu ">
+              <li> <a href="#">HOME</a> </li>
+              <li> <a href="#">RESTAURANTS</a> </li>
+              <li> <a href="#">SE CONNECTER</a> </li>
+              <li> <a href="#">A PROPOS</a> </li>
+            </ul>
+          </span> 
+          <span class="cls"></span> 
+      </div>
     </header>
 
         {% block body %}{% endblock %}
         {% block javascripts %}
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
         <script src="{{ asset('/js/nav.js')}}"></script>        
         {% endblock %}
     </body>
