@@ -48,6 +48,7 @@ input#search-bar {
   font-size: 1rem;
   border: 1px solid #D0CFCE;
   outline: none;
+  border-radius: 20px 20px 20px 20px;
 }
 input#search-bar:focus {
   border: 1px solid #008ABF;
