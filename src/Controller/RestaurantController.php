@@ -22,7 +22,7 @@ class RestaurantController extends AbstractController
         $repository = $this -> getDoctrine() -> getRepository(Restaurant::class);
         $restaurants = $repository -> findAll();
 
-        return $this->render('restaurant/index.html.twig', [
+        return $this->render('restaurant/getRestaurant.html.twig', [
             'restaurants' => $restaurants
         ]);
     }
@@ -36,7 +36,7 @@ class RestaurantController extends AbstractController
         $repo = $this -> getDoctrine() -> getRepository(Restaurant::class);
         $restaurant = $repo -> find($id);
         
-        return $this->render('restaurant/index.html.twig', [
+        return $this->render('restaurant/getRestaurant.html.twig', [
             'restaurant' => $restaurant
         ]);
     }

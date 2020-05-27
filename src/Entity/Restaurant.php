@@ -140,4 +140,50 @@ class Restaurant
 
         return $this;
     }
+
+        //Fonction pour gérer l'upload des images: renomer l'image en BDD, enregistrer l'image en BDD.
+        public function LogoUpload()
+        {
+            $newName = $this->renameFile($this-> file-> getClientOriginalName());
+    
+            $this-> logo = $newName;
+
+            $this-> file->move(__DIR__ . '/../../public/img/restaurant/logo', $newName);
+        }
+    
+
+        public function renameFile($name)
+        {
+            return 'fichier_' . time() . '_' . rand(1, 9999) . '_' . $name;
+        }
+    
+
+        public function removeLogo()
+        {
+            if(file_exists(__DIR__ . '/../../public/img/restaurant/logo' . $this-> logo) && $this-> logo != 'default.jpg')
+            {
+                unlink(__DIR__ . '/../../public/img/restaurant/logo' . $this-> logo);
+            }
+        }
+
+
+        //Fonction pour gérer l'upload des images: renomer l'image en BDD, enregistrer l'image en BDD.
+        public function photoUpload()
+        {
+            $newName = $this->renameFile($this-> file-> getClientOriginalName());
+    
+            $this-> photo = $newName;
+
+            $this-> file->move(__DIR__ . '/../../public/img/restaurant/photo', $newName);
+        }
+
+
+        public function removePhoto()
+        {
+            if(file_exists(__DIR__ . '/../../public/img/restaurant/photo' . $this-> photo) && $this-> photo != 'default.jpg')
+            {
+                unlink(__DIR__ . '/../../public/img/restaurant/photo' . $this-> photo);
+            }
+        }
+    
 }
