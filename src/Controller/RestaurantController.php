@@ -42,7 +42,7 @@ class RestaurantController extends AbstractController
     }
 
          /**
-     * @Route("/", name="restaurants")
+     * @Route("/restaurants ", name="restaurants")
      */
     public function recupAllRestaurants()
     {
@@ -50,7 +50,7 @@ class RestaurantController extends AbstractController
         $repository = $this -> getDoctrine() -> getRepository(Restaurant::class);
         $restaurant = $repository -> findAll();
 
-        return $this->render('user/index.html.twig', [
+        return $this->render('restaurant/index.html.twig', [
             'restaurant' => $restaurant
         ]);
     }

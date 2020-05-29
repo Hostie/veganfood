@@ -50,6 +50,16 @@ class User implements UserInterface
      */
     private $email;
 
+    /**
+     * @ORM\Column(type="string", length=10)
+     */
+    private $wallet = '50';
+
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    private $phone;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -179,5 +189,29 @@ class User implements UserInterface
         {
             unlink(__DIR__ . '/../../public/img/users/' . $this-> photo);
         }
+    }
+
+    public function getWallaet(): ?string
+    {
+        return $this->wallaet;
+    }
+
+    public function setWallaet(string $wallaet): self
+    {
+        $this->wallaet = $wallaet;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
     }
 }

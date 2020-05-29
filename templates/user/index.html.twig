@@ -17,15 +17,28 @@
         </div>
 
         <section class="grid grid__resto">
-        
-            {% for rest in restaurant %}
-            <div class="resto__item">
-                <a href=""><img class=""  href="" src="{{ asset('/img/restaurant/logo/')  ~ rest.logo }}"></a>
-                <h2>{{ rest.name }}</h2>
-                <p>{{ rest.description }} </p>
-                <button type="button" class="btn btn-light">Voir les plats</button>
+    
+            <div onclick="location.href='#'"  class="resto__item euro">
+              <h1>EUROPÉEN</h1>
             </div>
-            {% endfor %}
+
+           
+             <div onclick="location.href='#'" class="resto__item asia">
+                
+                <h1>ASIATIQUE</h1>
+                </div>
+              
+               
+    
+
+            <div onclick="location.href='#'"  class="resto__item usa">
+               <h1>AMÉRICAIN</h1>
+            </div>
+
+            <div  onclick="location.href='#'" class="resto__item vegan">
+                <h1>VEGAN</h1>
+            </div>
+        
             
 
         </section>

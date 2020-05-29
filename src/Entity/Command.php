@@ -2,14 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\OrderRepository;
+use App\Repository\CommandRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=OrderRepository::class)
- * @ORM\Table(name="`order`")
+ * @ORM\Entity(repositoryClass=CommandRepository::class)
  */
-class Order
+class Command
 {
     /**
      * @ORM\Id()
@@ -19,7 +18,7 @@ class Order
     private $id;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="string", length=10)
      */
     private $price;
 
@@ -28,18 +27,17 @@ class Order
      */
     private $date;
 
-   
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getPrice(): ?float
+    public function getPrice(): ?string
     {
         return $this->price;
     }
 
-    public function setPrice(float $price): self
+    public function setPrice(string $price): self
     {
         $this->price = $price;
 
@@ -57,6 +55,4 @@ class Order
 
         return $this;
     }
-
-   
 }
