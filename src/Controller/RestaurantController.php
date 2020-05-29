@@ -36,7 +36,21 @@ class RestaurantController extends AbstractController
         $repo = $this -> getDoctrine() -> getRepository(Restaurant::class);
         $restaurant = $repo -> find($id);
         
-        return $this->render('restaurant/getRestaurant.html.twig', [
+        return $this->render('user/getRestaurant.html.twig', [
+            'restaurant' => $restaurant
+        ]);
+    }
+
+         /**
+     * @Route("/", name="restaurants")
+     */
+    public function recupAllRestaurants()
+    {
+        ///je recupere tous les infos des restos
+        $repository = $this -> getDoctrine() -> getRepository(Restaurant::class);
+        $restaurant = $repository -> findAll();
+
+        return $this->render('user/index.html.twig', [
             'restaurant' => $restaurant
         ]);
     }

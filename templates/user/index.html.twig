@@ -18,36 +18,15 @@
 
         <section class="grid grid__resto">
         
+            {% for rest in restaurant %}
             <div class="resto__item">
-                <a href=""><img class=""  href="" src="{{ asset('/img/rest3.jpg')}}"></a>
-                <h2>Ham'burger Vegan</h2>
-                <p>Description de bobo qui parle de bien être et du fait de manger sain </p>
+                <a href=""><img class=""  href="" src="{{ asset('/img/restaurant/logo/')  ~ rest.logo }}"></a>
+                <h2>{{ rest.name }}</h2>
+                <p>{{ rest.description }} </p>
                 <button type="button" class="btn btn-light">Voir les plats</button>
             </div>
-
-            <div class="resto__item">
-                <a href=""><img class=""  href="" src="{{ asset('/img/rest3.jpg')}}"></a>
-                <h2>Vegan Sable</h2>
-                <p>Description de bobo qui parle de bien être et du fait de manger sain </p>
-                <button type="button" class="btn btn-light">Voir les plats</button>
-            </div>
-
-            <div class="resto__item">
-        
-               <a href=""><img class=""  href="" src="{{ asset('/img/rest3.jpg')}}"></a>
-                <h2>Quinoa & Co</h2>
-                <p>Description de bobo qui parle de bien être et du fait de manger sain </p>
-                <button type="button" class="btn btn-light">Voir les plats</button>
-
-            </div>
-
-            <div class="resto__item">
-                <a href=""><img class=""  href="" src="{{ asset('/img/rest3.jpg')}}"></a>
-                <h2>Ham'burger Vegan</h2>
-                <p>Description de bobo qui parle de bien être et du fait de manger sain </p>
-                <button type="button" class="btn btn-light">Voir les plats</button>
+            {% endfor %}
             
-            </div>
 
         </section>
 
