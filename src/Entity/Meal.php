@@ -37,6 +37,11 @@ class Meal
      */
     private $description;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Command::class, inversedBy="id_meal")
+     */
+    private $id_command;
+
     
 
     public function getId(): ?int
@@ -88,6 +93,18 @@ class Meal
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getIdCommand(): ?Command
+    {
+        return $this->id_command;
+    }
+
+    public function setIdCommand(?Command $id_command): self
+    {
+        $this->id_command = $id_command;
 
         return $this;
     }

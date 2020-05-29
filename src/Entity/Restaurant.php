@@ -49,6 +49,11 @@ class Restaurant
      */
     private $category;
 
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, mappedBy="id_restaurant", cascade={"persist", "remove"})
+     */
+    private $id_user;
+
     
     public function getId(): ?int
     {
@@ -181,6 +186,24 @@ class Restaurant
             {
                 unlink(__DIR__ . '/../../public/img/restaurant/photo' . $this-> photo);
             }
+        }
+
+        public function getIdUser(): ?User
+        {
+            return $this->id_user;
+        }
+
+        public function setIdUser(?User $id_user): self
+        {
+            $this->id_user = $id_user;
+
+            // set (or unset) the owning side of the relation if necessary
+            $newId_restaurant = null === $id_user ? null : $this;
+            if ($id_user->getIdRestaurant() !== $newId_restaurant) {
+                $id_user->setIdRestaurant($newId_restaurant);
+            }
+
+            return $this;
         }
     
 }

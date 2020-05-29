@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -59,6 +61,21 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=10, nullable=true)
      */
     private $phone;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Restaurant::class, inversedBy="id_user", cascade={"persist", "remove"})
+     */
+    private $id_restaurant;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Command::class, mappedBy="id_command")
+     */
+    private $id_command;
+
+    public function __construct()
+    {
+        $this->id_command = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -211,6 +228,49 @@ class User implements UserInterface
     public function setPhone(?string $phone): self
     {
         $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getIdRestaurant(): ?Restaurant
+    {
+        return $this->id_restaurant;
+    }
+
+    public function setIdRestaurant(?Restaurant $id_restaurant): self
+    {
+        $this->id_restaurant = $id_restaurant;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Command[]
+     */
+    public function getIdCommand(): Collection
+    {
+        return $this->id_command;
+    }
+
+    public function addIdCommand(Command $idCommand): self
+    {
+        if (!$this->id_command->contains($idCommand)) {
+            $this->id_command[] = $idCommand;
+            $idCommand->setIdCommand($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIdCommand(Command $idCommand): self
+    {
+        if ($this->id_command->contains($idCommand)) {
+            $this->id_command->removeElement($idCommand);
+            // set the owning side to null (unless already changed)
+            if ($idCommand->getIdCommand() === $this) {
+                $idCommand->setIdCommand(null);
+            }
+        }
 
         return $this;
     }
