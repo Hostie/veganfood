@@ -60,24 +60,24 @@ class RestaurantController extends AbstractController
             $manager -> persist($restaurant); 
             //Ajouter l'id du créateur du restau au restau
             
-            $logo = $form['logo']->getData();
+            $logo = $form['file']->getData();
             if (is_object($logo))
             {
                 $restaurant -> fileUpload();  //Faire la fonction nécessaire
             }
 
-            $photo = $form['photo']->getData();
+           /* $photo = $form['photo']->getData();
             if (is_object($photo))
             {
-                $restaurant -> fileUpload();  //Faire la fonction nécessaire
+                $restaurant -> photoUpload();  //Faire la fonction nécessaire
             }
-            
+    */            
 
             $manager -> flush();
-
-            //return $this ->redirectToRoute('index');
+            return $this ->redirectToRoute('createRestaurant');
             
         }
+
         return $this -> render('restaurant/create.html.twig', [
             'RestaurantForm' => $form -> createView()
         ]);

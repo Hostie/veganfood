@@ -9,7 +9,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
-
 class RestaurantFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -18,11 +17,10 @@ class RestaurantFormType extends AbstractType
             ->add('name')
             ->add('address')
             ->add('zipcode')
-            ->add('logo', FileType::Class, array('required' => false))
+            ->add('file', FileType::Class, array('required' => false))
             ->add('description')
             ->add('category')
-            ->add('photo', FileType::Class, array('required' => false))
-            ->add('Ajouter', SubmitType::class, [
+            ->add('Ajoutay', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-large btn-info mt-2 mb-2'
                 ]

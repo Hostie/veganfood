@@ -31,7 +31,7 @@ class UserController extends AbstractController
 
             $manager = $this -> getDoctrine() -> getManager();
             $manager -> persist($usr); // Enregistre l'objet dans le systeme (pas dans la BDD)
-            $usr -> setRole('ROLE_USER');
+            $usr -> setRoles('ROLE_USER');
 
             $file = $form['file']->getData();    //Si le champ est vide on considère que la photo du user sera la photo par défault.
             if (is_object($file))

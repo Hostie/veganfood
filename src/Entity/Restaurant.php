@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\RestaurantRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity(repositoryClass=RestaurantRepository::class)
@@ -35,7 +36,8 @@ class Restaurant
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $logo;
+    private $logo='default.png';
+    private $file;
 
     /**
      * @ORM\Column(type="text")
@@ -47,11 +49,7 @@ class Restaurant
      */
     private $category;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $photo;
-
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -129,22 +127,21 @@ class Restaurant
         return $this;
     }
 
-    public function getPhoto(): ?string
+    public function getFile()
     {
-        return $this->photo;
+        return $this->file;
     }
 
-    public function setPhoto(string $photo): self
+    public function setFile(UploadedFile $file)
     {
-        $this->photo = $photo;
-
+        $this->file = $file;
         return $this;
     }
 
         //Fonction pour gérer l'upload des images: renomer l'image en BDD, enregistrer l'image en BDD.
-        public function LogoUpload()
+        public function fileUpload()
         {
-            $newName = $this->renameFile($this-> file-> getClientOriginalName());
+            $newName = $this->renameFile($this-> file -> getClientOriginalName());
     
             $this-> logo = $newName;
 
@@ -168,7 +165,7 @@ class Restaurant
 
 
         //Fonction pour gérer l'upload des images: renomer l'image en BDD, enregistrer l'image en BDD.
-        public function photoUpload()
+       /* public function photoUpload()
         {
             $newName = $this->renameFile($this-> file-> getClientOriginalName());
     
@@ -176,7 +173,7 @@ class Restaurant
 
             $this-> file->move(__DIR__ . '/../../public/img/restaurant/photo', $newName);
         }
-
+*/
 
         public function removePhoto()
         {
