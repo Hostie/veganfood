@@ -4,21 +4,21 @@
 
     <main>
         <div class="rest__title">
-            <h1 class="resto-title">NOS RESTAURANTS</h1>
+            <h1 class="resto-title">Nom du resto</h1>
         </div>
         <div class="rest__type">
-            <h1 class="resto-title">VEGAN</h1>
+            <h1 class="resto-title">LES PLATS</h1>
         </div>
-        <section class="grid grid__resto">
+        <section class="grid__plat">
         
-            {% for rest in restaurant %}
-            <div class="resto__item">
+            
+            <div class="plat__item">
                 <a href=""><img class=""  href="" src="{{ asset('/img/restaurant/logo/')  ~ rest.logo }}"></a>
                 <h2>{{ rest.name }}</h2>
                 <p>{{ rest.description }} </p>
                 <button type="button" class="btn btn-light">Voir les plats</button>
             </div>
-            {% endfor %}
+            
         </section>
 
     
