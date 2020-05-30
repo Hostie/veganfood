@@ -72,9 +72,15 @@ class User implements UserInterface
      */
     private $id_command;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Rate::class, mappedBy="user_id")
+     */
+    private $rate_id;
+
     public function __construct()
     {
         $this->id_command = new ArrayCollection();
+        $this->rate_id = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -269,6 +275,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($idCommand->getIdCommand() === $this) {
                 $idCommand->setIdCommand(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rate[]
+     */
+    public function getRateId(): Collection
+    {
+        return $this->rate_id;
+    }
+
+    public function addRateId(Rate $rateId): self
+    {
+        if (!$this->rate_id->contains($rateId)) {
+            $this->rate_id[] = $rateId;
+            $rateId->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRateId(Rate $rateId): self
+    {
+        if ($this->rate_id->contains($rateId)) {
+            $this->rate_id->removeElement($rateId);
+            // set the owning side to null (unless already changed)
+            if ($rateId->getUserId() === $this) {
+                $rateId->setUserId(null);
             }
         }
 

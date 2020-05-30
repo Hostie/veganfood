@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MealRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -29,7 +31,7 @@ class Meal
     private $photo;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="string")
      */
     private $price;
 
@@ -50,6 +52,16 @@ class Meal
      * @ORM\JoinColumn(nullable=false)
      */
     private $id_restaurant;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Rate::class, mappedBy="id_meal")
+     */
+    private $id_rates;
+
+    public function __construct()
+    {
+        $this->id_rates = new ArrayCollection();
+    }
 
     
 
@@ -82,12 +94,12 @@ class Meal
         return $this;
     }
 
-    public function getPrice(): ?float
+    public function getPrice(): ?string
     {
         return $this->price;
     }
 
-    public function setPrice(float $price): self
+    public function setPrice(string $price): string
     {
         $this->price = $price;
 
@@ -162,6 +174,37 @@ class Meal
     public function setIdRestaurant(?Restaurant $id_restaurant): self
     {
         $this->id_restaurant = $id_restaurant;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rate[]
+     */
+    public function getIdRates(): Collection
+    {
+        return $this->id_rates;
+    }
+
+    public function addIdRate(Rate $idRate): self
+    {
+        if (!$this->id_rates->contains($idRate)) {
+            $this->id_rates[] = $idRate;
+            $idRate->setIdMeal($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIdRate(Rate $idRate): self
+    {
+        if ($this->id_rates->contains($idRate)) {
+            $this->id_rates->removeElement($idRate);
+            // set the owning side to null (unless already changed)
+            if ($idRate->getIdMeal() === $this) {
+                $idRate->setIdMeal(null);
+            }
+        }
 
         return $this;
     }
