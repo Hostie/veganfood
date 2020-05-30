@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\SignUpFormType;
+use App\Form\SignUpRestaurantFormType;
 use App\Form\LoginFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,14 +32,14 @@ class UserController extends AbstractController
 
             $manager = $this -> getDoctrine() -> getManager();
             $manager -> persist($usr); // Enregistre l'objet dans le systeme (pas dans la BDD)
-            $usr -> setRoles('ROLE_USER');
+            $usr -> setRole('ROLE_USER');
 
             $file = $form['file']->getData();    //Si le champ est vide on considère que la photo du user sera la photo par défault.
             if (is_object($file))
             {
                 $usr -> fileUpload();  //Renome l'image de l'utilisateur, l'enregistre en BDD et dans le dossier public/img.
             }
-            
+
             $password = $usr -> getPassword();
             $newPassword = $encode -> encodePassword($usr, $password);
 
@@ -54,6 +55,45 @@ class UserController extends AbstractController
 
     }
 
+    /**
+     * @Route("/sr", name="signsr")
+     */
+    public function signUpRest(UserPasswordEncoderInterface $encode, Request $request){
+
+        $usr = new User;
+
+        $form = $this -> createForm(SignUpRestaurantFormType::Class, $usr);
+        $form -> handleRequest($request);
+        
+        if ($form -> isSubmitted() && $form -> isValid()) {
+
+            $manager = $this -> getDoctrine() -> getManager();
+            $manager -> persist($usr); // Enregistre l'objet dans le systeme (pas dans la BDD)
+            $usr -> setRole('ROLE_ADMIN');
+
+            $file = $form['file']->getData();    //Si le champ est vide on considère que la photo du user sera la photo par défault.
+            if (is_object($file))
+            {
+                $usr -> fileUpload();  //Renome l'image de l'utilisateur, l'enregistre en BDD et dans le dossier public/img.
+            }
+
+            $password = $usr -> getPassword();
+            $newPassword = $encode -> encodePassword($usr, $password);
+
+            $usr -> setPassword($newPassword);
+            $manager -> flush(); // Enregistre dans la BDD en executant la ou les requêtes enregistrées dans le systeme
+
+            return $this ->redirectToRoute('login');
+        }
+
+        return $this->render('user/signupRestaurant.html.twig', [
+            'SignUpRestaurantForm' => $form -> createView()
+        ]);
+
+    }
+
+    
+    
 
           /**
      * @Route("/", name="index")
@@ -95,4 +135,12 @@ class UserController extends AbstractController
             'lastUsername' => $lastUsername
         ]);
     }
+
+    /**
+     * @Route("/profile", name="profile")
+     */
+    public function profile(){
+        return $this->render('user/profile.html.twig', []);
+    }
+
 }

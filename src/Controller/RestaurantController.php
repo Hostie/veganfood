@@ -21,7 +21,6 @@ class RestaurantController extends AbstractController
 
         $repository = $this -> getDoctrine() -> getRepository(Restaurant::class);
         $restaurants = $repository -> findAll();
-
         return $this->render('restaurant/getRestaurant.html.twig', [
             'restaurants' => $restaurants
         ]);
@@ -71,7 +70,7 @@ class RestaurantController extends AbstractController
         if ($form -> isSubmitted() && $form -> isValid()) {
 
             $manager = $this -> getDoctrine() -> getManager();
-            $manager -> persist($restaurant); 
+            $manager -> persist($restaurant);
             //Ajouter l'id du créateur du restau au restau
             
             $logo = $form['file']->getData();
@@ -87,8 +86,8 @@ class RestaurantController extends AbstractController
             }
     */            
 
-            $manager -> flush();
-            return $this ->redirectToRoute('createRestaurant');
+            $manager -> flush();    
+            return $this ->redirectToRoute('createRestaurant'); 
             
         }
 
