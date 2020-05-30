@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\RestaurantRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -37,6 +39,7 @@ class Restaurant
      * @ORM\Column(type="string", length=255)
      */
     private $logo='default.png';
+    
     private $file;
 
     /**
@@ -53,6 +56,16 @@ class Restaurant
      * @ORM\OneToOne(targetEntity=User::class, mappedBy="id_restaurant", cascade={"persist", "remove"})
      */
     private $id_user;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Meal::class, mappedBy="id_restaurant")
+     */
+    private $id_meal;
+
+    public function __construct()
+    {
+        $this->id_meal = new ArrayCollection();
+    }
 
     
     public function getId(): ?int
@@ -201,6 +214,37 @@ class Restaurant
             $newId_restaurant = null === $id_user ? null : $this;
             if ($id_user->getIdRestaurant() !== $newId_restaurant) {
                 $id_user->setIdRestaurant($newId_restaurant);
+            }
+
+            return $this;
+        }
+
+        /**
+         * @return Collection|Meal[]
+         */
+        public function getIdMeal(): Collection
+        {
+            return $this->id_meal;
+        }
+
+        public function addIdMeal(Meal $idMeal): self
+        {
+            if (!$this->id_meal->contains($idMeal)) {
+                $this->id_meal[] = $idMeal;
+                $idMeal->setIdRestaurant($this);
+            }
+
+            return $this;
+        }
+
+        public function removeIdMeal(Meal $idMeal): self
+        {
+            if ($this->id_meal->contains($idMeal)) {
+                $this->id_meal->removeElement($idMeal);
+                // set the owning side to null (unless already changed)
+                if ($idMeal->getIdRestaurant() === $this) {
+                    $idMeal->setIdRestaurant(null);
+                }
             }
 
             return $this;

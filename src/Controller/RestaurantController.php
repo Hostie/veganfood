@@ -44,7 +44,7 @@ class RestaurantController extends AbstractController
          /**
      * @Route("/restaurants ", name="restaurants")
      */
-    public function recupAllRestaurants()
+    public function getAllRestaurants()
     {
         ///je recupere tous les infos des restos
         $repository = $this -> getDoctrine() -> getRepository(Restaurant::class);
