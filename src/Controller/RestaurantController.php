@@ -36,8 +36,11 @@ class RestaurantController extends AbstractController
         $repo = $this -> getDoctrine() -> getRepository(Restaurant::class);
         $restaurant = $repo -> find($id);
         
+        $meals = $restaurant-> getIdMeal();
+
         return $this->render('user/getRestaurant.html.twig', [
-            'restaurant' => $restaurant
+            'restaurant' => $restaurant,
+            'meals' => $meals
         ]);
     }
 
@@ -91,7 +94,5 @@ class RestaurantController extends AbstractController
             'RestaurantForm' => $form -> createView()
         ]);
     }
-
-
 
 }
