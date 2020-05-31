@@ -3,24 +3,38 @@
 {% block body %}
 
     <main>
-    {% for rest in restaurant %}
-        <div class="rest__title">
-            <h1 class="resto-title">{{ rest.name}}</h1>
-        </div>
-        <div class="rest__type">
-            <h1 class="resto-title">VEGAN</h1>
-        </div>
-        <section class="grid grid_item">
-        
-            {% for rest in restaurants %}
+             
             <div class="resto__item">
-                <a href=""><img class=""  href="" src="{{ asset('/img/restaurant/logo/')  ~ rest.logo }}"></a>
-                <h2>{{ rest.name }}</h2>
-                <p>{{ rest.description }} </p>
-                <button type="button" class="btn btn-light">Voir les plats</button>
+                <a href=""><img class=""  href="" src="{{ asset('/img/restaurant/logo/')  ~ restaurant.logo }}"></a>
+                <h2>{{ restaurant.name }}</h2>
+                
+                {{ restaurant.zipcode }}
+                {{ restaurant.address }}
+                
+            </div>
+
+            
+
+            <section class="grid2 grid_item">
+            {% for m in meals %}
+            
+            <div class="plat__item">
+               <a href=""><img class="plat_img"   href="" src="{{ asset('/img/restaurant/logo/')  ~ m.photo }}"></a>
+                <h2> {{ m.name }}</h2>
+                <p>{{ m.description }}</p>
+                 <p>{{ m.price }} euros</p>
+                 <button type="button">Ajouter</button>
+                
             </div>
             {% endfor %}
-        </section>
+            </section>
+
+
+
+
+            
+
+
 
     
 

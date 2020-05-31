@@ -29,15 +29,18 @@ class RestaurantController extends AbstractController
 
 
     /**
-     * @Route("/restaurant", name="restaurant")
+     * @Route("/restaurant/{id}", name="restaurant")
      */
     public function getRestaurant($id)
     {
         $repo = $this -> getDoctrine() -> getRepository(Restaurant::class);
         $restaurant = $repo -> find($id);
         
-        return $this->render('user/show.html.twig', [
-            'restaurant' => $restaurant
+        $meals = $restaurant-> getIdMeal();
+
+        return $this->render('restaurant/show.html.twig', [
+            'restaurant' => $restaurant,
+            'meals' => $meals
         ]);
     }
 
@@ -57,7 +60,7 @@ class RestaurantController extends AbstractController
 
 
     /**
-     * @Route("/restaurant/create", name="createRestaurant")
+     * @Route("/restaurants/create", name="createRestaurant")
      */
 
     public function createRestaurant(Request $request, UserInterface $user){
@@ -91,7 +94,5 @@ class RestaurantController extends AbstractController
             'RestaurantForm' => $form -> createView()
         ]);
     }
-
-
 
 }

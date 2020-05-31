@@ -36,6 +36,40 @@ h1{
   }
 }
 
+.grid2{
+  margin: 20px;
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  column-gap: 20px;
+  row-gap: 20px;
+  text-align: center;
+  justify-content: center;
+
+  margin-top: 3%;
+  @media(max-width:768px){
+    
+        display: grid;
+        grid-template-columns: repeat(1,1fr);
+        column-gap: 30px;
+        row-gap: 30px;
+        margin-left: 10px;
+        margin-right: 10px;
+        
+    
+  }
+  @media(max-width:576px){
+        display: grid;
+        grid-template-columns: repeat(1,1fr);
+        column-gap: 30px;
+        row-gap: 30px;
+        margin-left: 10px;
+        margin-right: 10px;
+  }
+}
+
+
+
+
 .rest__type{
   margin-top: 100px;
   text-align: center;
@@ -69,7 +103,7 @@ h1{
   
 
 
-.resto__item {
+.resto__item, .plat__item{
   margin-top: 5%;
   margin-bottom: 5%;;
   display: table; 
@@ -101,6 +135,13 @@ h1{
   }
 
 
+}
+
+.plat__item{
+  img{
+    height: auto;
+    width: auto;
+  }
 }
 
 .euro{

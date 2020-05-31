@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Meal;
+use App\Entity\Rate;
 use App\Form\SignUpFormType;
 use App\Form\SignUpRestaurantFormType;
 use App\Form\LoginFormType;
@@ -141,6 +143,33 @@ class UserController extends AbstractController
      */
     public function profile(){
         return $this->render('user/profile.html.twig', []);
+    }
+
+    /**
+    * @Route("/rate/add/{mealId}/{comment}/{note}", name="addRate")
+    */
+    public function addRate(Request $request,UserInterface $user, $mealId, $comment, $note){
+
+        $rate = new Rate;
+
+        $repo = $this -> getDoctrine() -> getRepository(Meal::class);
+        $meal = $repo -> find($mealId);
+        $rate-> setIdMeal($meal);  //Liaison avec le repas selectionné.
+
+        $rate-> setUserId($user);  //Liaison avec l'user actuel.
+        $rate-> setComment($comment);  //Récuperation du commentaire entré.
+        $rate-> setNote($note);  //Récuperation de la note.
+
+        $manager = $this -> getDoctrine() -> getManager();
+        $manager -> persist($meal); 
+
+        $manager -> flush();
+
+        return $this ->redirectToRoute('createRestaurant');
+
+        return $this -> render('meal/add.html.twig', [
+            'MealForm' => $form -> createView()
+        ]);
     }
 
 }
