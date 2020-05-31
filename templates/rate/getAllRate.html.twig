@@ -1,0 +1,9 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    {% for rate in rates %}
+        {{ rate.note }}
+        {{ rate.comment }}
+    {% endfor %}
+
+{{ AverageNote }}
+{% endblock %}

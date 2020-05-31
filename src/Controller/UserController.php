@@ -158,18 +158,16 @@ class UserController extends AbstractController
 
         $rate-> setUserId($user);  //Liaison avec l'user actuel.
         $rate-> setComment($comment);  //Récuperation du commentaire entré.
-        $rate-> setNote($note);  //Récuperation de la note.
+        $rate-> setNote($note);  //Récuperation de la note
 
         $manager = $this -> getDoctrine() -> getManager();
-        $manager -> persist($meal); 
+        $manager -> persist($rate); 
 
         $manager -> flush();
 
-        return $this ->redirectToRoute('createRestaurant');
+        $response = new Response(json_encode("Comment well added."));
 
-        return $this -> render('meal/add.html.twig', [
-            'MealForm' => $form -> createView()
-        ]);
+        return $response;
     }
 
 }
