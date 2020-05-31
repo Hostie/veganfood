@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Restaurant;
+use Symfony\Component\Security\Core\User\UserInterface;
 use App\Form\RestaurantFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -59,7 +60,7 @@ class RestaurantController extends AbstractController
      * @Route("/restaurant/create", name="createRestaurant")
      */
 
-    public function createRestaurant(Request $request){
+    public function createRestaurant(Request $request, UserInterface $user){
 
         $restaurant = new Restaurant;
 
@@ -73,21 +74,15 @@ class RestaurantController extends AbstractController
             $manager -> persist($restaurant);
             //Ajouter l'id du créateur du restau au restau
             
-            $logo = $form['file']->getData();
+            $logo = $form['file']->getData();  //Correspond à la photo du restaurant.
             if (is_object($logo))
             {
-                $restaurant -> fileUpload();  //Faire la fonction nécessaire
+                $restaurant -> fileUpload();  
             }
 
-           /* $photo = $form['photo']->getData();
-            if (is_object($photo))
-            {
-                $restaurant -> photoUpload();  //Faire la fonction nécessaire
-            }
-    */            
-
+            $restaurant-> setIdUser($user);
             $manager -> flush();    
-            return $this ->redirectToRoute('createRestaurant'); 
+            //return $this ->redirectToRoute('createRestaurant'); 
             
         }
 
