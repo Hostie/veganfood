@@ -103,7 +103,7 @@ class Meal
     {
         $this->price = $price;
 
-        return $this;
+        return $this->price;
     }
 
     public function getDescription(): ?string
