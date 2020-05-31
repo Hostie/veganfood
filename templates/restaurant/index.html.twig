@@ -11,14 +11,14 @@
         </div>
         <section class="grid__plat">
         
-            
+            {% for rest in restaurants %}
             <div class="plat__item">
                 <a href=""><img class=""  href="" src="{{ asset('/img/restaurant/logo/')  ~ rest.logo }}"></a>
                 <h2>{{ rest.name }}</h2>
                 <p>{{ rest.description }} </p>
                 <button type="button" class="btn btn-light">Voir les plats</button>
             </div>
-            
+            {% endfor %}
         </section>
 
     

@@ -51,7 +51,7 @@ class RestaurantController extends AbstractController
         $restaurant = $repository -> findAll();
 
         return $this->render('restaurant/index.html.twig', [
-            'restaurant' => $restaurant
+            'restaurants' => $restaurant
         ]);
     }
 
@@ -82,7 +82,8 @@ class RestaurantController extends AbstractController
 
             $restaurant-> setIdUser($user);
             $manager -> flush();    
-            //return $this ->redirectToRoute('createRestaurant'); 
+            
+            return $this ->redirectToRoute('restaurants');
             
         }
 
