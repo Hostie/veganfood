@@ -29,14 +29,14 @@ class RestaurantController extends AbstractController
 
 
     /**
-     * @Route("/restaurant", name="getRestaurant")
+     * @Route("/restaurant", name="restaurant")
      */
     public function getRestaurant($id)
     {
         $repo = $this -> getDoctrine() -> getRepository(Restaurant::class);
         $restaurant = $repo -> find($id);
         
-        return $this->render('user/getRestaurant.html.twig', [
+        return $this->render('user/show.html.twig', [
             'restaurant' => $restaurant
         ]);
     }
