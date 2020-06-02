@@ -30,7 +30,7 @@ class RestaurantController extends AbstractController
 
 
     /**
-     * @Route("/restaurant/{id}", name="restaurant")
+     * @Route("/restaurant/{id}", name="show")
      */
     public function getRestaurant($id)
     {
