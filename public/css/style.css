@@ -205,3 +205,24 @@ h1 {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+.comment__item {
+  display: block;
+  height: 30vh;
+  width:100%;
+  right: 50%;
+  background-color: transparent;
+  padding: 2%;
+}
+
+.__commentList {
+  height: 70%;
+  width: 90%;
+  margin-left: 5%;
+  padding: 10px;
+  background-color: transparent;
+}
+
+.__commentForm {
+    margin-top: 2%;
+}

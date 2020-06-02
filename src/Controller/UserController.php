@@ -148,17 +148,19 @@ class UserController extends AbstractController
     /**
     * @Route("/rate/add/{mealId}/{comment}/{note}", name="addRate")
     */
-    public function addRate(Request $request,UserInterface $user, $mealId, $comment, $note){
+    public function addRate(UserInterface $user, $mealId, $comment, $note){
 
         $rate = new Rate;
 
         $repo = $this -> getDoctrine() -> getRepository(Meal::class);
-        $meal = $repo -> find($mealId);
+        $meal = $repo -> find(intval($mealId));
         $rate-> setIdMeal($meal);  //Liaison avec le repas selectionné.
 
         $rate-> setUserId($user);  //Liaison avec l'user actuel.
+
         $rate-> setComment($comment);  //Récuperation du commentaire entré.
-        $rate-> setNote($note);  //Récuperation de la note
+
+        $rate-> setNote(intval($note));  //Récuperation de la note
 
         $manager = $this -> getDoctrine() -> getManager();
         $manager -> persist($rate); 
