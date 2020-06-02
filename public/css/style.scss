@@ -85,6 +85,8 @@ h1{
   height: 500px;
   vertical-align: middle;
   text-align: center;
+  display: table; 
+  width: 100%;
 }
 
 
@@ -212,9 +214,15 @@ h1{
   text-align: center;
 }
 
-.zip__input{ margin-top :16vh; border-color:#cccccc; padding:20px; font-size:19px; border-width:0px; border-style:outset;   } 
-.zip__input:focus { outline:none; } 
-
 .input-group{
-  width: 300px;
+  display: table-cell;
+  vertical-align: middle;
+  h1{
+    margin-bottom: 80px;
+    font-family : 'Roboto';
+  }
+  input{
+    width: 300px;
+  
+  }
 }
