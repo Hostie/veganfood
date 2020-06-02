@@ -78,9 +78,9 @@ h1 {
 }
 
 .container__search {
-  margin-top: 100px;
+  margin-top: 50px;
   background-color: lightyellow;
-  height: 400px;
+  height: 500px;
   vertical-align: middle;
   text-align: center;
 }
@@ -92,7 +92,7 @@ h1 {
 }
 .rest__title h1, .engagement__title h1 {
   margin-top: 200px;
-  font-size: 70px;
+  font-size: 50px;
 }
 
 .resto__item, .plat__item {
@@ -113,6 +113,10 @@ h1 {
 .resto__item img:hover, .plat__item img:hover {
   opacity: 0.7;
 }
+.resto__item h3, .plat__item h3 {
+  font-size: 80px;
+  margin-bottom: 4 0px;
+}
 .resto__item h2, .plat__item h2 {
   margin-top: 50px;
   margin-bottom: 20px;
@@ -126,8 +130,8 @@ h1 {
 }
 
 .plat__item img {
-  height: auto;
-  width: auto;
+  height: 100%;
+  width: 100%;
 }
 
 .euro {
@@ -155,6 +159,10 @@ h1 {
   opacity: 0.7;
 }
 
+.__price {
+  margin-bottom: 50px;
+}
+
 .vegan {
   background-image: url("/img/vegan.jpg");
   background-repeat: no-repeat;
@@ -177,6 +185,23 @@ h1 {
 .footer__main {
   margin-top: 150px;
   text-align: center;
+}
+
+.zip__input {
+  margin-top: 16vh;
+  border-color: #cccccc;
+  padding: 20px;
+  font-size: 19px;
+  border-width: 0px;
+  border-style: outset;
+}
+
+.zip__input:focus {
+  outline: none;
+}
+
+.input-group {
+  width: 300px;
 }
 
 /*# sourceMappingURL=style.css.map */
