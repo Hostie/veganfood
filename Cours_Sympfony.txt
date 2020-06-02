@@ -27,7 +27,7 @@ ETAPE 1 : Installation de SF 4
     composer create-project symfony/website-skeleton Blog
 
 3/ Architecture des fichiers et dossiers
-
+Sushi2
     Bin/ : Les éxécutables de notre app (SF)
     Config/ : Les configurations de notre app
     src/ : Code PHP/SQL de notre app (code propriétaire)

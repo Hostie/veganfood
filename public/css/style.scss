@@ -142,7 +142,7 @@ h1{
   @media(max-width:768px){
     
     h1{
-      font: :40px;
+      font-size: 40px;
     }
     
 
@@ -241,5 +241,26 @@ h1{
     width: 300px;
   
   }
+}
+
+.comment__item {
+  display: block;
+  height: 30vh;
+  width:100%;
+  right: 50%;
+  background-color: transparent;
+  padding: 2%;
+}
+
+.__commentList {
+  height: 70%;
+  width: 90%;
+  margin-left: 5%;
+  padding: 10px;
+  background-color: transparent;
+}
+
+.__commentForm {
+    margin-top: 2%;
 }
 

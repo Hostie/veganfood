@@ -1,9 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
     <main>
-             
             <div class="resto__item">
                 
                 <h3>{{ restaurant.name }}</h3>
@@ -23,7 +21,21 @@
                 <h2> {{ m.name }}</h2>
                 <p>{{ m.description }}</p>
                 <p class="__price">{{ m.price }} euros</p>
-                <button class="add__button" href="">Ajouter</button>
+
+                <section class="comment__item">
+                    <button class="btn btn-light" id={{ m.id }} onclick="getComment(this.id)">Voir les commentaires</button>
+                    <div class="__commentList">
+                    <hr>
+                    <hr>
+                    </div>
+
+                    <div class="__commentForm">
+                        <input type="text"></input>
+                        <button class="btn btn-light">Laisse ton commentaire</button>
+                    </div>
+                </section>
+
+                <a  class ="btn btn-success" href ="{{ path('cart_add', {'id': m.id}) }}">Ajouter</a>
                 
             </div>
             {% endfor %}
@@ -45,4 +57,9 @@
 
 </body>
 
+{% endblock %}
+
+{% block javascripts %}
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="{{ asset('/js/show.js')}}"></script>        
 {% endblock %}

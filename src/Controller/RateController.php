@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Restaurant;
 use App\Entity\Meal;
+use App\Entity\Rate;
 use App\Form\MealFormType;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,8 +22,8 @@ class RateController extends AbstractController{
      */
     public function getAllRate($mealId)
     {
-        $repo = $this -> getDoctrine() -> getRepository(Meal::class);
-        $meal = $repo -> find($mealId);  //Récuperation du 
+        $repo = $this-> getDoctrine()-> getRepository(Meal::class);
+        $meal = $repo-> find($mealId);  //Récuperation du 
         
         $rates = $meal-> getIdRates();
         $AverageNoteArray = array();
@@ -30,12 +32,8 @@ class RateController extends AbstractController{
             array_push($AverageNoteArray, $value->getNote());
         }
         $AverageNote = array_sum($AverageNoteArray) / count($AverageNoteArray);
-        //$response = new Response(json_encode($rates));    Pour l'instant on fait une route voir si ca marche bien 
-        //return $response;
-
-        return $this->render('rate/getAllRate.html.twig', [
-            'rates' => $rates,
-            'AverageNote' => $AverageNote
-        ]);
+        $response = new Response(json_encode($rates));    
+        return $response;
     }
+
 }
