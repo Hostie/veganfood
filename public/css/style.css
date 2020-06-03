@@ -253,7 +253,7 @@ h1 {
   z-index: 2;
 }
 .shipping__cart:hover {
-  background-color: lo;
+  background-color: lightyellow;
 }
 .shipping__cart:active {
   background-color: #fbfd6d;
