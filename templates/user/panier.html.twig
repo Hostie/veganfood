@@ -2,9 +2,9 @@
 
 {% block body %}
 
-
+<h1 class="text-center mb-5">PANIER</h1>
 {% if items | length > 0  %}
-
+<div class="container mt-5">
 <table class="table">
     <thread>
         <tr>
@@ -22,7 +22,7 @@
             <td>{{ item.product.name}}</td>
             <td>{{ item.product.price}}</td>
              <td>{{ item.quantity}}</td>
-            <td>{{ item.product.price * item.quantity }}</td>
+            <td>{{ item.product.price * item.quantity  }}</td>
             <td>
                 <a href="{{ path('cart_remove', {'id' : item.product.id })  }}" class ="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
             </td>
@@ -34,8 +34,8 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="3" class="text-right"> Total :</td>
-            <td>{{ total }}</td>
+            <td colspan="3" class="text-right"> Total + frais de port (2.5 €)</td>
+            <td>{{ total + 2.5 }}</td>
             <td></td>
             <td></td>
         </tr>
@@ -48,7 +48,14 @@
 
 </table>
 
+<div>
+{% else %}
+    <div class="container text-center mt-5" style="margin-top:40px;">
+        <h2 class="mt-5"> Ba alors, tu n'as rien commandé, c'est pas bon, c'est ça ??</h2>
+         <img class="logo" onclick="window.location='/'" src="{{ asset('/img/sad.png')}}">
+    </div>
 {% endif %}
+
 
 
 {% endblock %}
