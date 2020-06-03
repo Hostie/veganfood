@@ -59,6 +59,16 @@ class RestaurantController extends AbstractController
         ]);
     }
 
+            /**
+     * @Route("/panier ", name="panier")
+     */
+    public function panier()
+    {
+    
+
+        return $this->render('restaurant/panier.html.twig');
+    }
+
 
     /**
      * @Route("/restaurants/create", name="createRestaurant")

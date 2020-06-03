@@ -42,12 +42,14 @@ class RateController extends AbstractController{
             array_push($commentAndRateArray, [$value->getId(), $value->getNote(), $value-> getComment(), $value->getUserId()->getUsername()]);
         }
 
-        return $this -> render('rate/getAllRate.html.twig', [
-            'rates' => $commentAndRateArray,
-            'averageNote' => $averageNote
-        ]);
+        //return $this -> render('rate/getAllRate.html.twig', [
+        //    'rates' => $commentAndRateArray,
+        //    'averageNote' => $averageNote
+        //]);
 
-        //return new JsonResponse(['' => $AverageNote]);
+        return new JsonResponse(['commentAndRateArray' => $commentAndRateArray,
+                                    'averageNote' => $averageNote
+        ]);
     }
 
 }

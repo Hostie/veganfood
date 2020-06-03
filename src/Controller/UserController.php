@@ -50,7 +50,7 @@ class UserController extends AbstractController
 
             return $this ->redirectToRoute('login');
         }
-
+     
         return $this->render('user/signup.html.twig', [
             'SignUpForm' => $form -> createView()
         ]);
