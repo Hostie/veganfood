@@ -10,43 +10,49 @@ $(document).ready(function() {
     $('.open').removeClass('oppenned');
     event.stopPropagation();
   });
+
 });
 
-jQuery(function($) {
-  $('.shipping__cart').on('click', function() {
-      $('.nav--responsive__none').toggleClass("nav--responsive__active", true).toggleClass("nav--responsive__none", false);
-      $('.overlay').toggle();
-      setTimeout(function(){
-          $('.overlay').addClass("is-open");
-      }, 300);
-      $('.header-nav-burger').addClass('is-animate');
-      $('body').addClass('overflow');
-  });
-  $('.overlay').on('click', function() {
-      $('.nav--responsive__active').toggleClass("nav--responsive__active", false).toggleClass("nav--responsive__none", true);
-      $('.overlay').removeClass("is-open");
-      setTimeout(function(){
-          $('.overlay').toggle();
-      }, 300);
-      $('.header-nav-burger').removeClass('is-animate');
-      $('body').removeClass('overflow');
-  });
-  
-  //var heroHeight;
-  var headerHeight;
-  var screenHeight;
-  //heroHeight = $('.hero__home').height();
-  function resize() {
-      screenHeight = $(window).innerHeight();
-      headerHeight = $('.header__main').innerHeight();
-      valueHero = screenHeight - headerHeight;
-      $('.hero__home').css('height', valueHero);
+function displayComment(mealId) {
+
+  var commentSection = $('#commentSection' + mealId).is(":visible");
+  console.log(commentSection);
+  if (commentSection === false){
+    $('#commentSection' + mealId).show();
   }
+  else {
+    $('#commentSection' + mealId).hide();
+  }
+};
 
-  resize();
+function getComment(mealId){
 
-  $(window).resize(resize);
+  var getCommentAjax = jQuery.ajax({
+      
+      type: 'GET',
+      url: window.origin + '/rate/getAllRate/' + mealId,
+      dataType: 'JSON',
 
-  // Pour gérer sur plusieurs evênements PLUS PROPRE
-  // $(window).on('load,resize', function () {});
-})
+      success: function(code_html, statut) {
+          console.log("yes");
+      },
+
+      error: function(resultat, statut, erreur) {
+          console.log("no");
+      },
+      complete: function(resultat, statut) {
+          //console.log(resultat.responseJSON);
+
+          var comments = resultat.responseJSON.commentAndRateArray;
+          var commentList = $('#commentList' + mealId);
+
+          commentList.append("<hr>");
+          for (const element of comments) {
+              commentList.append("<div class=\"__comment\"><h1>" + element[2] + "</h1><h3>" + element[3] + "</h3></div>");
+          }
+          commentList.append("<hr>");
+          console.log(commentList);
+
+      }
+  });
+};

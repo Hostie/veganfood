@@ -14,6 +14,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 
 class RateController extends AbstractController{
 
@@ -23,17 +25,31 @@ class RateController extends AbstractController{
     public function getAllRate($mealId)
     {
         $repo = $this-> getDoctrine()-> getRepository(Meal::class);
-        $meal = $repo-> find($mealId);  //Récuperation du 
+        $meal = $repo-> find(intval($mealId));  //Récuperation du 
         
         $rates = $meal-> getIdRates();
-        $AverageNoteArray = array();
+
+        $averageNoteArray = array();
 
         foreach ($rates as $value) {
-            array_push($AverageNoteArray, $value->getNote());
+            array_push($averageNoteArray, $value->getNote());
         }
-        $AverageNote = array_sum($AverageNoteArray) / count($AverageNoteArray);
-        $response = new Response(json_encode($rates));    
-        return $response;
+        $averageNote = array_sum($averageNoteArray) / count($averageNoteArray);
+
+        $commentAndRateArray = array();
+
+        foreach ( $rates as $value) {
+            array_push($commentAndRateArray, [$value->getId(), $value->getNote(), $value-> getComment(), $value->getUserId()->getUsername()]);
+        }
+
+        //return $this -> render('rate/getAllRate.html.twig', [
+        //    'rates' => $commentAndRateArray,
+        //    'averageNote' => $averageNote
+        //]);
+
+        return new JsonResponse(['commentAndRateArray' => $commentAndRateArray,
+                                    'averageNote' => $averageNote
+        ]);
     }
 
 }
