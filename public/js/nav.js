@@ -45,14 +45,42 @@ function getComment(mealId){
 
           var comments = resultat.responseJSON.commentAndRateArray;
           var commentList = $('#commentList' + mealId);
+          commentList.empty();
 
-          commentList.append("<hr>");
           for (const element of comments) {
               commentList.append("<div class=\"__comment\"><h1>" + element[2] + "</h1><h3>" + element[3] + "</h3></div>");
           }
-          commentList.append("<hr>");
           console.log(commentList);
 
       }
   });
+};
+
+function AddComment(mealId){
+  var comment = $("#__commentInput"+mealId).val();
+  console.log(comment);
+  var note = $("#__rateInput"+mealId).val();
+
+  if (comment != "" && note != "note"){
+    var AddCommentAjax = jQuery.ajax({
+      
+      type: 'GET',
+      url: window.origin + '/rate/add/' + mealId + '/' + comment + '/' + note,
+      dataType: 'JSON',
+
+      success: function(code_html, statut) {
+        console.log("Your comment has been well added.");
+      },
+
+      error: function(resultat, statut, erreur) {
+        console.log("You comment hasn't been well added.");
+      },
+      complete: function(resultat, statut) {
+        console.log("AddComment completed.")
+      }
+    });
+  }
+
+  getComment(mealId);
+
 };
