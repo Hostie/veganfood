@@ -7,10 +7,19 @@
 
         <div class="input-group input-group-l">
         <h1>Votre aventure culinaire commence ici </h1>
-        <input type="text" placeholder="Entrez votre code postal"></input>
+        <form action="#" method="post">
+            <input type="text" placeholder="Entrez votre code postal" name="zipcode"></input>
+            <button type="submit">Miam</button>
+        </form> 
+        {% for message in app.flashes('notice') %}
+            <br>
+            <div class="alert alert-primary" role="notice">
+                {{ message }}
+            </div>
+        {% endfor %}
         </div>
         </section> 
-
+        
 
         <div class="rest__title">
             <h1 class="resto-title">NOS RESTAURANTS</h1>
@@ -18,34 +27,32 @@
 
         <section class="grid grid__resto">
     
-            <div onclick="location.href='#'"  class="resto__item euro">
+            <div onclick="location.href='{{ path('getRestaurantCategory', {cat: 'Europeen'}) }}'"  class="resto__item euro">
               <h1>EUROPÉEN</h1>
             </div>
 
            
-             <div onclick="location.href='#'" class="resto__item asia">
+             <div onclick="location.href='{{ path('getRestaurantCategory', {cat: 'Asiatique'}) }}'" class="resto__item asia">
                 
                 <h1>ASIATIQUE</h1>
                 </div>
               
-               
-    
 
-            <div onclick="location.href='#'"  class="resto__item usa">
+            <div onclick="location.href='{{ path('getRestaurantCategory', {cat: 'Americain'}) }}'"  class="resto__item usa">
                <h1>AMÉRICAIN</h1>
             </div>
 
-            <div  onclick="location.href='#'" class="resto__item vegan">
+            <div  onclick="location.href='{{ path('getRestaurantCategory', {cat: 'Vegan'}) }}'" class="resto__item vegan">
                 <h1>VEGAN</h1>
             </div>
 
 
-            <div onclick="location.href='#'"  class="resto__item euro">
+            <div onclick="location.href='{{ path('getRestaurantCategory', {cat: 'Europeen'}) }}'"  class="resto__item euro">
               <h1>EUROPÉEN</h1>
             </div>
 
            
-             <div onclick="location.href='#'" class="resto__item asia">
+             <div onclick="location.href='{{ path('getRestaurantCategory', {cat: 'Asiatique'}) }}'" class="resto__item asia">
                 
                 <h1>ASIATIQUE</h1>
                 </div>

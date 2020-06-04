@@ -103,8 +103,30 @@ class UserController extends AbstractController
           /**
      * @Route("/", name="index")
      */
-    public function index(){
-        return $this->render('user/index.html.twig', []);
+    public function index(Request $request){
+
+        if($request->isMethod('post')){
+            
+            $code = $request->request->get("zipcode");
+
+            if ( preg_match ( " /^[0-9]{5,5}$/ " , $code) ){
+
+                return $this ->redirectToRoute('getRestaurantZipcode', ['code' => $code]);
+            }
+            else{
+                $this->addFlash(
+                    'notice',
+                    'Veuillez entrer un code postale correct.'
+                );
+
+                return $this->render('user/index.html.twig', []);
+            }
+        }
+
+        else{
+
+            return $this->render('user/index.html.twig', []);
+        }
     }
 
 
