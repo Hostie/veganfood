@@ -86,7 +86,6 @@ class RestaurantController extends AbstractController
 
             $manager = $this -> getDoctrine() -> getManager();
             $manager -> persist($restaurant);
-            //Ajouter l'id du créateur du restau au restau
             
             $logo = $form['file']->getData();  //Correspond à la photo du restaurant.
             if (is_object($logo))

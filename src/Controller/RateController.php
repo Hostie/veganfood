@@ -30,23 +30,25 @@ class RateController extends AbstractController{
         $rates = $meal-> getIdRates();
 
         $averageNoteArray = array();
-
         foreach ($rates as $value) {
             array_push($averageNoteArray, $value->getNote());
         }
-        $averageNote = array_sum($averageNoteArray) / count($averageNoteArray);
+        if (empty($averageNoteArray)) {
+            $averageNote = "Non Noté";
+        }
+        else {
+            $averageNote = array_sum($averageNoteArray) / count($averageNoteArray);
+        }
+
 
         $commentAndRateArray = array();
-
         foreach ( $rates as $value) {
             array_push($commentAndRateArray, [$value->getId(), $value->getNote(), $value-> getComment(), $value->getUserId()->getUsername()]);
         }
-
-        //return $this -> render('rate/getAllRate.html.twig', [
-        //    'rates' => $commentAndRateArray,
-        //    'averageNote' => $averageNote
-        //]);
-
+        if (empty($commentAndRateArray)){
+            array_push($commentAndRateArray, "Aucun commentaire de disponnible");
+        }
+        
         return new JsonResponse(['commentAndRateArray' => $commentAndRateArray,
                                     'averageNote' => $averageNote
         ]);

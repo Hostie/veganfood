@@ -15,13 +15,13 @@ $(document).ready(function() {
 
 function displayComment(mealId) {
 
-  var commentSection = $('#commentSection' + mealId).is(":visible");
+  var commentSection = $('#commentItem' + mealId).is(":visible");
   console.log(commentSection);
   if (commentSection === false){
-    $('#commentSection' + mealId).show();
+    $('#commentItem' + mealId).show();
   }
   else {
-    $('#commentSection' + mealId).hide();
+    $('#commentItem' + mealId).hide();
   }
 };
 
@@ -44,13 +44,19 @@ function getComment(mealId){
           //console.log(resultat.responseJSON);
 
           var comments = resultat.responseJSON.commentAndRateArray;
+
+          console.log(comments);
           var commentList = $('#commentList' + mealId);
           commentList.empty();
 
-          for (const element of comments) {
+          if (comments[0] != "Aucun commentaire de disponnible"){
+            for (const element of comments) {
               commentList.append("<div class=\"__comment\"><h1>" + element[2] + "</h1><h3>" + element[3] + "</h3></div>");
+            }
           }
-          console.log(commentList);
+          else {
+            commentList.append("<div class=\"__emptyComment\"><h1>Aucun commentaire pour ce plat.</h1></div>");
+          }
 
       }
   });
