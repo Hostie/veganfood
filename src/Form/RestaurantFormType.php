@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class RestaurantFormType extends AbstractType
 {
@@ -19,7 +20,15 @@ class RestaurantFormType extends AbstractType
             ->add('zipcode')
             ->add('file', FileType::Class, array('required' => false))
             ->add('description')
-            ->add('category')
+            ->add('category', ChoiceType::class, [
+                'choices'  => [
+                    'Vegan' => 'Vegan',
+                    'Européen'=> 'Européen',
+                    'Asiatique' => 'Asiatique',
+                    'Américain' => 'Américain',
+                    'Français' => 'Français',
+                    'Italien' => 'Italien',
+                ]])
             ->add('Ajoutay', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-large btn-info mt-2 mb-2'

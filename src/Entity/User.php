@@ -77,6 +77,16 @@ class User implements UserInterface, \Serializable
      */
     private $rate_id;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $postal;
+
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    private $zipcode;
+
     public function __construct()
     {
         $this->id_command = new ArrayCollection();
@@ -337,5 +347,29 @@ class User implements UserInterface, \Serializable
                 // see section on salt below
                 // $this->salt
             ) = unserialize($serialized);
+        }
+
+        public function getPostal(): ?string
+        {
+            return $this->postal;
+        }
+
+        public function setPostal(?string $postal): self
+        {
+            $this->postal = $postal;
+
+            return $this;
+        }
+
+        public function getZipcode(): ?string
+        {
+            return $this->zipcode;
+        }
+
+        public function setZipcode(?string $zipcode): self
+        {
+            $this->zipcode = $zipcode;
+
+            return $this;
         }
 }

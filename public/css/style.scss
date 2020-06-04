@@ -67,6 +67,36 @@ h1{
   }
 }
 
+.grid3{
+  margin: 20px;
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  column-gap: 20px;
+  row-gap: 20px;
+  text-align: center;
+  justify-content: center;
+  
+  margin-top: 3%;
+  @media(max-width:768px){
+    
+        display: grid;
+        grid-template-columns: repeat(1,1fr);
+        column-gap: 30px;
+        row-gap: 30px;
+        margin-left: 10px;
+        margin-right: 10px;
+        
+    
+  }
+  @media(max-width:576px){
+        display: grid;
+        grid-template-columns: repeat(1,1fr);
+        column-gap: 30px;
+        row-gap: 30px;
+        margin-left: 10px;
+        margin-right: 10px;
+  }
+}
 
 
 
@@ -105,7 +135,7 @@ h1{
   
 
 
-.resto__item, .plat__item{
+.resto__item, .plat__item {
   margin-top: 5%;
   margin-bottom: 5%;;
   display: table; 
@@ -157,7 +187,41 @@ h1{
 }
 
 
+
 }
+
+
+.profile__item{
+  img{
+    width:60%;
+    height:60%;
+    margin-top: 40px;
+    margin-bottom: 60px;
+    border-radius:50%;
+    &:hover{
+      opacity : 0.7;
+    }
+    
+    
+  }
+  h1{
+    font-size: 50px;
+    color: black;
+    margin-bottom: 20px;;
+    
+  }
+  h2{
+    font-weight:bold;
+    margin-bottom: 20px;
+    color : lightblue;
+     
+  }
+  h3{
+    margin-bottom: 50px;
+  }
+
+}
+
 
 .plat__item{
   
@@ -320,4 +384,76 @@ h1{
 tr:hover {background-color: #f5f5f5;}
 th{
   background-color: lightyellow;
+}
+
+.commentitem {
+  height: 25vh;
+  width: 100%;
+  background-color: transparent;
+  padding: 0 2% 2%;
+  display: none;
+}
+.commentSection{
+  height: 88%;
+  width: 100%;
+  background-color: transparent;
+  padding: 0.5%;
+}
+
+.commentList {
+  height: 70%;
+  width: 100%;
+  padding: 10px;
+  background-color: transparent;
+  overflow: auto;
+}
+
+.commentForm {
+  height: 25%;
+  width: 100;
+  background-color: transparent;
+}
+.commentInput {
+  height: auto;
+  width: 60%;
+  display: inline-block;
+}
+
+.commentRate {
+  height: auto;
+  width: 15%;
+  display: inline-block;
+}
+
+.commentSubmit {
+  height: auto;
+  width: 8%;
+  display: inline-block;
+  padding:0;
+  background-color: transparent;
+  border: transparent;
+}
+
+.comment{
+  height: auto;
+  width: 90%;
+  background-color: aqua;
+  border-radius: 10px;
+  color: red;
+  margin: 10px;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+.comment h1{
+  font-size: 1.2em;
+  color: red;
+}
+
+.comment h3{
+  font-size: 1.2em;
+  text-align: right;
+}
+.__commentList{
+  overflow: auto;
 }
