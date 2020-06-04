@@ -127,7 +127,7 @@ class UserController extends AbstractController
             if ($this->getUser()) {
 
                 $user = $this->getUser();
-                $repository = $this -> getDoctrine() -> getRepository(Restaurant::class);
+                $repository = $this -> getDoctrine() -> getRepository(Restaurant::Class);
                 $restaurants = $repository -> findByZipcode($user->getId())-> setMaxResults(4);
 
                 return $this->render('user/index.html.twig', [
@@ -175,7 +175,7 @@ class UserController extends AbstractController
             'lastUsername' => $lastUsername
         ]);
     }
-
+    
     /**
      * @Route("/profile", name="profile")
      */
