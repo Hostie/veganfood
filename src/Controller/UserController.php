@@ -22,10 +22,13 @@ class UserController extends AbstractController
 {
     /**
      * @Route("/signup", name="sign")
+     * @Route("/profile/{id}/edit", name="edit")
      */
-    public function signUp(UserPasswordEncoderInterface $encode, Request $request){
-
-        $usr = new User;
+    public function signUp(User $usr = null, UserPasswordEncoderInterface $encode, Request $request){
+        if(!$usr){
+            $usr = new User;
+        }
+      
 
         $form = $this -> createForm(SignUpFormType::Class, $usr);
         $form -> handleRequest($request);

@@ -19,8 +19,11 @@ class SignUpFormType extends AbstractType
             ->add('username')
             ->add('password')
             ->add('email')
+            ->add('postal')
+            ->add('zipcode')
+            ->add('phone')
             ->add('file', FileType::Class, array('required' => false))
-            ->add('SignUp', SubmitType::class, [
+            ->add('Envoyer', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-large btn-info mt-2 mb-2'
                 ]
