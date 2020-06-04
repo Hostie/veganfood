@@ -15,20 +15,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class RestaurantController extends AbstractController
 {
-        /**
-     * @Route("/restaurant/all", name="getAllRestaurant")
-     */
-    public function getAllMessages()
-    {
-
-        $repository = $this -> getDoctrine() -> getRepository(Restaurant::class);
-        $restaurants = $repository -> findAll();
-        return $this->render('restaurant/getRestaurant.html.twig', [
-            'restaurants' => $restaurants
-        ]);
-    }
-
-
+    
     /**
      * @Route("/restaurant/{id}", name="show")
      */
@@ -105,8 +92,33 @@ class RestaurantController extends AbstractController
         ]);
     }
 
-     
 
+    /**
+     * @Route("/restaurants/zipcode/{code}", name="getRestaurantZipcode")
+     */
+    public function getRestaurantByZipcode($code){
+        
+        $repository = $this -> getDoctrine() -> getRepository(Restaurant::class);
+        $restaurants = $repository -> findByZipcode($code);
+
+        return $this->render('restaurant/index.html.twig', [
+            'restaurants' => $restaurants
+        ]);
+    }
+
+
+    /**
+     * @Route("/restaurants/category/{cat}", name="getRestaurantCategory")
+     */
+    public function getRestaurantByCategory($cat){
+        
+        $repository = $this -> getDoctrine() -> getRepository(Restaurant::class);
+        $restaurants = $repository -> findByCategory($cat);
+
+        return $this->render('restaurant/index.html.twig', [
+            'restaurants' => $restaurants
+        ]);
+    }
 
 
 }
