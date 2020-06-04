@@ -103,7 +103,7 @@ class UserController extends AbstractController
     public function index(Request $request){
 
         if($request->isMethod('post')){
-            
+
             $code = $request->request->get("zipcode");
 
             if ( preg_match ( " /^[0-9]{5,5}$/ " , $code) ){
@@ -121,8 +121,21 @@ class UserController extends AbstractController
         }
 
         else{
+            if ($this->getUser()) {
 
-            return $this->render('user/index.html.twig', []);
+                $user = $this->getUser();
+                $repository = $this -> getDoctrine() -> getRepository(Restaurant::class);
+                $restaurants = $repository -> findByZipcode($user->getId())-> setMaxResults(4);
+
+                return $this->render('user/index.html.twig', [
+                    'restaurants' => $restaurants
+                ]);
+            }
+            else {
+                return $this->render('user/index.html.twig', [
+                    'restaurants' => false
+                ]);
+            }
         }
     }
 
