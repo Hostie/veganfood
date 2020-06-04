@@ -78,4 +78,28 @@ class CartController extends AbstractController
 
     }
 
+
+     /**
+     * @Route("/panier/order", name="cart_remove")
+     */
+    // public function order(SessionInterface $session, UserInterface $user){
+    //     $panier = $session -> get('panier', []);
+
+    //     $command = new Command;
+
+    //     $command -> setPrice();
+    //     $command -> setDate();
+    //     $command -> setIdUser();
+
+    //     $manager = $this -> getDoctrine() -> getManager();
+    //     $manager -> persist($command);
+            
+            
+    //     $manager -> flush();    
+    //     return $this ->redirectToRoute('restaurants');
+
+    // }
+
+
+
 }

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Meal;
 use App\Entity\Rate;
+use APP\Entity\Restaurant;
 use App\Form\SignUpFormType;
 use App\Form\SignUpRestaurantFormType;
 use App\Form\LoginFormType;
@@ -103,7 +104,7 @@ class UserController extends AbstractController
           /**
      * @Route("/", name="index")
      */
-    public function index(Request $request){
+    public function index(Request $request, UserInterface $user){
 
         if($request->isMethod('post')){
 
@@ -124,14 +125,24 @@ class UserController extends AbstractController
         }
 
         else{
-            if ($this->getUser()) {
+            if ($user) {
 
-                $user = $this->getUser();
                 $repository = $this -> getDoctrine() -> getRepository(Restaurant::class);
-                $restaurants = $repository -> findByZipcode($user->getId())-> setMaxResults(4);
+                $restaurants = $repository -> findByZipcode($user->getZipcode());
+
+                $restaurantsToDisplay = [];
+                $i = 0;
+
+                foreach ($restaurants as $value) {
+
+                    if ( $i < 4){
+                        array_push($restaurantsToDisplay, $value);
+                    }
+                    $i += 1;
+                }
 
                 return $this->render('user/index.html.twig', [
-                    'restaurants' => $restaurants
+                    'restaurants' => $restaurantsToDisplay,
                 ]);
             }
             else {
