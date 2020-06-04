@@ -59,12 +59,14 @@ class RestaurantController extends AbstractController
 
     /**
      * @Route("/restaurants/create", name="createRestaurant")
+     * @Route("/admin/restaurants/{id}/edit", name="edit")
      */
 
-    public function createRestaurant(Request $request, UserInterface $user){
-
-        $restaurant = new Restaurant;
-
+    public function createRestaurant(Restaurant $restaurant = null, Request $request, UserInterface $user){
+        if(!$restaurant){
+            $restaurant = new Restaurant;
+        }
+       
         $form = $this -> createForm(RestaurantFormType::Class, $restaurant);
 
         $form -> handleRequest($request);
@@ -106,6 +108,7 @@ class RestaurantController extends AbstractController
         ]);
     }
 
+    
 
     /**
      * @Route("/restaurants/category/{cat}", name="getRestaurantCategory")

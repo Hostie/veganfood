@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+
+
+<h1>Nombre total de restaurants : {{ total }} </h1>
+
+
+<div class="container-fluid mt-5">
+<table class="table">
+    <thread>
+        <tr>
+            <th>Nom</th>
+            <th>Catégorie</th>
+             <th>Commandes passées</th>
+            <th>Revenus générés</th>
+            <th>Actions</th>
+            <th></th>
+        </tr>
+    </thread>   
+    <tbody>
+
+   {% for rest in restaurants %}
+     <tr>
+            <td>{{ rest.name }}</td>
+            <td>{{ rest.category }}</td>
+             <td></td>
+            <td></td>
+            <td>
+                <a  class ="btn btn-success" href ="{{ path('edit_rest', {'id': rest.id}) }}">Modifier</a>
+                <a  class ="btn btn-danger" href ="{{ path('ad_del_rest', {'id': rest.id}) }}">Supprimer</a>
+            </td>
+        </tr>
+        
+ 
+ {% endfor %}
+
+    </tbody>
+
+
+
+</table>
+  <a  class ="btn btn-light" href ="{{ path('admin_create_admin') }}">Créer un Restaurant</a>
+
+<div>
+  
+
+
+
+
+
+{% endblock %}

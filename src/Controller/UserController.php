@@ -186,7 +186,7 @@ class UserController extends AbstractController
             'lastUsername' => $lastUsername
         ]);
     }
-
+    
     /**
      * @Route("/profile", name="profile")
      */
