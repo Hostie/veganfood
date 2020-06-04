@@ -5,7 +5,7 @@
     <section class="grid3 grid_item">
         <div class="profile__item">
             <h1 class="title__profile">Informations</h1>
-            <a href=""><img class="profil__img"   href="" src="{{ asset('/img/users/')  ~ app.user.photo }}"></a>
+            <a href ="{{ path('edit', {'id': app.user.id}) }}"><img class="profil__img"    src="{{ asset('/img/users/')  ~ app.user.photo }}"></a>
             <h2>Nom<h2>
             <h3>{{ app.user.username }}</h3>
            <h2>Email<h2>

@@ -180,8 +180,12 @@ h1 {
 .profile__item img {
   width: 60%;
   height: 60%;
-  margin-bottom: 20px;
+  margin-top: 40px;
+  margin-bottom: 60px;
   border-radius: 50%;
+}
+.profile__item img:hover {
+  opacity: 0.7;
 }
 .profile__item h1 {
   font-size: 50px;
@@ -339,6 +343,81 @@ tr:hover {
 
 th {
   background-color: lightyellow;
+}
+
+.commentitem {
+  height: 25vh;
+  width: 100%;
+  background-color: transparent;
+  padding: 0 2% 2%;
+  display: none;
+}
+
+.commentSection {
+  height: 88%;
+  width: 100%;
+  background-color: transparent;
+  padding: 0.5%;
+}
+
+.commentList {
+  height: 70%;
+  width: 100%;
+  padding: 10px;
+  background-color: transparent;
+  overflow: auto;
+}
+
+.commentForm {
+  height: 25%;
+  width: 100;
+  background-color: transparent;
+}
+
+.commentInput {
+  height: auto;
+  width: 60%;
+  display: inline-block;
+}
+
+.commentRate {
+  height: auto;
+  width: 15%;
+  display: inline-block;
+}
+
+.commentSubmit {
+  height: auto;
+  width: 8%;
+  display: inline-block;
+  padding: 0;
+  background-color: transparent;
+  border: transparent;
+}
+
+.comment {
+  height: auto;
+  width: 90%;
+  background-color: aqua;
+  border-radius: 10px;
+  color: red;
+  margin: 10px;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+.comment h1 {
+  font-size: 1.2em;
+  color: red;
+}
+
+.comment h3 {
+  font-size: 1.2em;
+  text-align: right;
+}
+
+.__commentList {
+  overflow: auto;
 }
 
 /*# sourceMappingURL=style.css.map */
