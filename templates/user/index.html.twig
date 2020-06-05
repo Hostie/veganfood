@@ -21,6 +21,12 @@
         </section> 
         
         {% if restaurants %}
+         <div class="near__title">
+            <h1 class="near-title">LES RESTAURANTS PRÈS DE CHEZ VOUS</h1>
+        </div>
+        
+        <section class="grid4 grid__resto">
+         
             {% for rest in restaurants %}
                 <div class="resto__item">
                 <a href="{{ path('show', {id : rest.id } ) }}"><img class=""  href="" src="{{ asset('/img/restaurant/logo/')  ~ rest.logo }}"></a>
@@ -30,6 +36,7 @@
                 </div>
             {% endfor %}
         {% endif %}
+        </section>
         <div class="rest__title">
             <h1 class="resto-title">NOS RESTAURANTS</h1>
         </div>
@@ -56,14 +63,14 @@
             </div>
 
 
-            <div onclick="location.href='{{ path('getRestaurantCategory', {cat: 'Europeen'}) }}'"  class="resto__item euro">
-              <h1>EUROPÉEN</h1>
+            <div onclick="location.href='{{ path('getRestaurantCategory', {cat: 'Français'}) }}'"  class="resto__item fra">
+              <h1>FRANÇAIS</h1>
             </div>
 
            
-             <div onclick="location.href='{{ path('getRestaurantCategory', {cat: 'Asiatique'}) }}'" class="resto__item asia">
+             <div onclick="location.href='{{ path('getRestaurantCategory', {cat: 'Italien'}) }}'" class="resto__item italie">
                 
-                <h1>ASIATIQUE</h1>
+                <h1>ITALIEN</h1>
                 </div>
               
                

@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+
+
+<h1>Nombre total de users : {{ total }} </h1>
+
+
+<div class="container-fluid mt-5">
+<table class="table">
+    <thread>
+        <tr>
+            <th>Nom</th>
+            <th>Email</th>
+             <th>Commandes passées</th>
+            <th>Revenus générés</th>
+            <th>Actions</th>
+            <th></th>
+        </tr>
+    </thread>   
+    <tbody>
+
+   {% for user in users %}
+     <tr>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+             <td></td>
+            <td></td>
+            <td>
+                <a  class ="btn btn-success" href ="{{ path('edit_user', {'id': user.id}) }}">Modifier</a>
+                <a  class ="btn btn-danger" href ="{{ path('ad_del_user', {'id': user.id}) }}">Supprimer</a>
+            </td>
+        </tr>
+        
+ 
+ {% endfor %}
+
+    </tbody>
+
+
+
+</table>
+  <a class ="btn btn-light" href ="{{ path('admin_create_user') }}">Créer un User</a>
+
+<div>
+  
+
+
+
+
+
+{% endblock %}

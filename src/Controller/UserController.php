@@ -222,4 +222,25 @@ class UserController extends AbstractController
         return $response;
     }
 
+     /**
+     * @Route("profile{id}/delete", name="delete")
+     */
+    public function deleteUser($id){
+        $manager = $this -> getDoctrine() -> getManager();
+        $user = $manager -> find(User::class, $id);
+        $manager -> remove($user);
+        $manager -> flush();
+
+
+        $repository = $this -> getDoctrine()-> getRepository(User::class);
+        $user = $repository ->findAll();
+
+        $this -> addFlash('Suppresion', 'User : '. $id. 'supprimé');
+        return $this -> render('admin/user.html.twig',[
+            'user' => $user
+        ]);
+    }
+
+
+
 }
