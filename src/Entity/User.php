@@ -68,7 +68,7 @@ class User implements UserInterface, \Serializable
     private $id_restaurant;
 
     /**
-     * @ORM\OneToMany(targetEntity=Command::class, mappedBy="id_command")
+     * @ORM\OneToMany(targetEntity=Command::class, mappedBy="id_user")
      */
     private $id_command;
 
@@ -226,14 +226,14 @@ class User implements UserInterface, \Serializable
         }
     }
 
-    public function getWallaet(): ?string
+    public function getWallet(): ?string
     {
-        return $this->wallaet;
+        return $this->wallet;
     }
 
-    public function setWallaet(string $wallaet): self
+    public function setWallet(string $wallet): self
     {
-        $this->wallaet = $wallaet;
+        $this->wallet = $wallet;
 
         return $this;
     }

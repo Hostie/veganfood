@@ -104,7 +104,7 @@ class UserController extends AbstractController
           /**
      * @Route("/", name="index")
      */
-    public function index(Request $request, UserInterface $user){
+    public function index(Request $request, ?UserInterface $user){
 
         if($request->isMethod('post')){
 
@@ -221,5 +221,26 @@ class UserController extends AbstractController
 
         return $response;
     }
+    
+    /**
+    * @Route("/test", name="test")
+    */
+    public function test(UserInterface $user)
+    {
+        $commands = $user-> getIdCommand();
+        
+        $commandArray = [];
+        foreach( $commands as $command){
+            $items = $command->getIdMeal();
+            foreach( $items as $item ){
+                array_push($commandArray, $item-> getName());
+            }
+        }
+        
 
+        return $this -> render('user/test.html.twig', [
+            'commands' => $commands,
+            'commandArray' => $commandArray
+        ]);
+    }
 }

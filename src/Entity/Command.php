@@ -81,8 +81,8 @@ class Command
 
     public function setIdUser(?User $id_user): self
     {
-        $this->id_command = $id_user;
-
+        //$this->id_command = $id_user;
+        $this->id_user = $id_user;
         return $this;
     }
 

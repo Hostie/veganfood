@@ -8,6 +8,7 @@ use App\Form\MealFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -17,9 +18,9 @@ class MealController extends AbstractController{
 
 
     /**
-    * @Route("/meal/add/{restaurantId}", name="addMeal")
+    * @Route("/meal/add/", name="addMeal")
     */
-    public function addMeal(Request $request, $restaurantId){
+    public function addMeal(Request $request, UserInterface $user){
 
         $meal = new Meal;
 
@@ -39,11 +40,11 @@ class MealController extends AbstractController{
             }
 
             $repo = $this -> getDoctrine() -> getRepository(Restaurant::class);
-            $restaurant = $repo -> find($restaurantId);
+            $restaurant = $repo -> find($user->getId());
             $meal-> setIdRestaurant($restaurant);  //Liaison au restaurant dont l'id est en url.
 
             $manager -> flush();
-            return $this ->redirectToRoute('createRestaurant');
+            return $this ->redirectToRoute('index');
             
         }
 
