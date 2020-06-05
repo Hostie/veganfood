@@ -87,6 +87,16 @@ class User implements UserInterface, \Serializable
      */
     private $zipcode;
 
+    /**
+     * @ORM\Column(type="string", length=30, nullable=true)
+     */
+    private $Name;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $Firstname;
+
     public function __construct()
     {
         $this->id_command = new ArrayCollection();
@@ -369,6 +379,30 @@ class User implements UserInterface, \Serializable
         public function setZipcode(?string $zipcode): self
         {
             $this->zipcode = $zipcode;
+
+            return $this;
+        }
+
+        public function getName(): ?string
+        {
+            return $this->Name;
+        }
+
+        public function setName(?string $Name): self
+        {
+            $this->Name = $Name;
+
+            return $this;
+        }
+
+        public function getFirstname(): ?string
+        {
+            return $this->Firstname;
+        }
+
+        public function setFirstname(?string $Firstname): self
+        {
+            $this->Firstname = $Firstname;
 
             return $this;
         }

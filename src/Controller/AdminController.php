@@ -28,6 +28,9 @@ class AdminController extends AbstractController
         ]);
     }
 
+
+    //Partie RESTO 
+
         /**
      * @Route("/admin/restaurant", name="admin_restaurant")
      */
@@ -53,14 +56,13 @@ class AdminController extends AbstractController
         $repository = $this -> getDoctrine() -> getRepository(Restaurant::class);
         $restaurant = $repository -> findAll();
 
-        $total =0;
+        $total = 0;
         foreach($restaurant as $restaurant)
         {
              $total ++;
         }
-      
         $restaurant = $repository -> findAll();
-        
+
         return $this->render('admin/restaurants.html.twig', [
             'restaurants' => $restaurant,
             'total' => $total
@@ -120,6 +122,107 @@ class AdminController extends AbstractController
         $this -> addFlash('Suppresion', 'Restaurant : '. $id. 'supprimé');
         return $this -> render('admin/restaurants.html.twig',[
             'restaurants' => $restaurant
+        ]);
+    }
+
+
+
+    //Partie USER
+
+
+    /**
+     * @Route("/admin/users", name="admin_users")
+     */
+    public function getAllUsers()
+    {
+       ///je recupere tous les infos des restos
+        $repository = $this -> getDoctrine() -> getRepository(User::class);
+        $users = $repository -> findAll();
+
+        $total = 0;
+        foreach($users as $users)
+        {
+             $total ++;
+        }
+        $users = $repository -> findAll();
+
+        return $this->render('admin/users.html.twig', [
+            'users' => $users,
+            'total' => $total
+        ]);
+    }   
+
+      /**
+     * @Route("/admin/user/{id}", name="admin_restaurant")
+     */
+    public function getUserByID($id)
+    {
+        $repo = $this -> getDoctrine() -> getRepository(User::class);
+        $user = $repo -> find($id);
+        
+
+        return $this->render('admin/users.html.twig', [
+            'user' => $user
+        ]);
+    }
+
+      /**
+     * @Route("/admin/users/create", name="admin_create_user")
+     * @Route("/admin/user/{id}/edit", name="edit_user")
+     */
+    public function adminCreateUpdateUser(User $usr = null, UserPasswordEncoderInterface $encode, Request $request){
+        if(!$usr){
+            $usr = new User;
+        }
+      
+
+        $form = $this -> createForm(SignUpFormType::Class, $usr);
+        $form -> handleRequest($request);
+        
+        if ($form -> isSubmitted() && $form -> isValid()) {
+
+            $manager = $this -> getDoctrine() -> getManager();
+            $manager -> persist($usr); // Enregistre l'objet dans le systeme (pas dans la BDD)
+            $usr -> setRole('ROLE_USER');
+
+            $file = $form['file']->getData();    //Si le champ est vide on considère que la photo du user sera la photo par défault.
+            if (is_object($file))
+            {
+                $usr -> fileUpload();  //Renome l'image de l'utilisateur, l'enregistre en BDD et dans le dossier public/img.
+            }
+
+            $password = $usr -> getPassword();
+            $newPassword = $encode -> encodePassword($usr, $password);
+
+            $usr -> setPassword($newPassword);
+            $manager -> flush(); // Enregistre dans la BDD en executant la ou les requêtes enregistrées dans le systeme
+
+            return $this ->redirectToRoute('admin_users');
+        }
+     
+        return $this->render('user/signup.html.twig', [
+            'SignUpForm' => $form -> createView()
+        ]);
+
+    }
+
+
+     /**
+     * @Route("admin/user/{id}/delete", name="ad_del_user")
+     */
+    public function deleteUser($id){
+        $manager = $this -> getDoctrine() -> getManager();
+        $user = $manager -> find(User::class, $id);
+        $manager -> remove($user);
+        $manager -> flush();
+
+
+        $repository = $this -> getDoctrine()-> getRepository(User::class);
+        $user = $repository ->findAll();
+
+        $this -> addFlash('Suppresion', 'User : '. $id. 'supprimé');
+        return $this -> render('admin/user.html.twig',[
+            'user' => $user
         ]);
     }
 

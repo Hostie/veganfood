@@ -7,7 +7,7 @@
             <h1 class="title__profile">Informations</h1>
             <a href ="{{ path('edit', {'id': app.user.id}) }}"><img class="profil__img"    src="{{ asset('/img/users/')  ~ app.user.photo }}"></a>
             <h2>Nom<h2>
-            <h3>{{ app.user.username }}</h3>
+            <h3>{{ app.user.name }} {{ app.user.firstname }}</h3>
            <h2>Email<h2>
             <h3>{{ app.user.email }}</h3>
             <h2>Adresse<h2>
@@ -16,6 +16,7 @@
             <h3>{{ app.user.zipcode }}</h3>
 
             <a  class ="btn btn-success" href ="{{ path('edit', {'id': app.user.id}) }}">Modifier son profil</a>
+            <a  class ="btn btn-danger" href ="{{ path('delete', {'id': app.user.id}) }}">Supprimer son profil</a>
         </div>
         
         <div class="profile__item">

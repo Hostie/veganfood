@@ -17,6 +17,8 @@ class SignUpFormType extends AbstractType
     {
         $builder
             ->add('username')
+            ->add('firstname')
+            ->add('name')
             ->add('password')
             ->add('email')
             ->add('postal')

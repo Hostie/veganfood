@@ -94,6 +94,26 @@ class RestaurantController extends AbstractController
         ]);
     }
 
+     /**
+     * @Route("restaurants/{id}/delete", name="deleteRestaurant")
+     */
+    public function deleteRestaurant($id){
+        $manager = $this -> getDoctrine() -> getManager();
+        $restaurant = $manager -> find(Restaurant::class, $id);
+        $manager -> remove($restaurant);
+        $manager -> flush();
+
+
+        $repository = $this -> getDoctrine()-> getRepository(Restaurant::class);
+        $restaurant = $repository ->findAll();
+
+        $this -> addFlash('Suppresion', 'Restaurant : '. $id. 'supprimé');
+        return $this -> render('admin/restaurants.html.twig',[
+            'restaurants' => $restaurant
+        ]);
+    }
+
+
 
     /**
      * @Route("/restaurants/zipcode/{code}", name="getRestaurantZipcode")
