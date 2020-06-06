@@ -63,14 +63,15 @@ class Restaurant
     private $id_meal;
 
     /**
-     * @ORM\OneToMany(targetEntity=Command::class, mappedBy="id_restaurant", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Command::class, mappedBy="id_restaurant2", orphanRemoval=true)
      */
-    private $id_commands;
+    private $commands2;
 
     public function __construct()
     {
         $this->id_meal = new ArrayCollection();
         $this->id_commands = new ArrayCollection();
+        $this->commands2 = new ArrayCollection();
     }
 
     
@@ -259,28 +260,28 @@ class Restaurant
         /**
          * @return Collection|Command[]
          */
-        public function getIdCommands(): Collection
+        public function getCommands2(): Collection
         {
-            return $this->id_commands;
+            return $this->commands2;
         }
 
-        public function addIdCommand(Command $idCommand): self
+        public function addCommands2(Command $commands2): self
         {
-            if (!$this->id_commands->contains($idCommand)) {
-                $this->id_commands[] = $idCommand;
-                $idCommand->setIdRestaurant($this);
+            if (!$this->commands2->contains($commands2)) {
+                $this->commands2[] = $commands2;
+                $commands2->setIdRestaurant2($this);
             }
 
             return $this;
         }
 
-        public function removeIdCommand(Command $idCommand): self
+        public function removeCommands2(Command $commands2): self
         {
-            if ($this->id_commands->contains($idCommand)) {
-                $this->id_commands->removeElement($idCommand);
+            if ($this->commands2->contains($commands2)) {
+                $this->commands2->removeElement($commands2);
                 // set the owning side to null (unless already changed)
-                if ($idCommand->getIdRestaurant() === $this) {
-                    $idCommand->setIdRestaurant(null);
+                if ($commands2->getIdRestaurant2() === $this) {
+                    $commands2->setIdRestaurant2(null);
                 }
             }
 
