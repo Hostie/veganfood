@@ -108,7 +108,7 @@ class CartController extends AbstractController
         $idRestaurant = new Restaurant;
         foreach($panierEnrichi as $item){
             $totalItem = $item['product'] -> getPrice() * $item['quantity'];
-            $total += $totalItem;
+            $total += $totalItem + 2.5;
             $idRestaurant = $item['product'] -> getIdRestaurant();
         }
         

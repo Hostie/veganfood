@@ -27,7 +27,7 @@ class MealController extends AbstractController{
         $form = $this -> createForm(MealFormType::Class, $meal);
 
         $form -> handleRequest($request);
-
+        
         if ($form -> isSubmitted() && $form -> isValid()) {
 
             $manager = $this -> getDoctrine() -> getManager();
@@ -40,9 +40,9 @@ class MealController extends AbstractController{
             }
 
             $repo = $this -> getDoctrine() -> getRepository(Restaurant::class);
-            $restaurant = $repo -> find($user->getId());
-            $meal-> setIdRestaurant($restaurant);  //Liaison au restaurant dont l'id est en url.
-
+            $restaurant = $repo-> find($user->getIdRestaurant());
+            
+            $meal-> setIdRestaurant($restaurant);  
             $manager -> flush();
             return $this ->redirectToRoute('index');
             
