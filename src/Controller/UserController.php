@@ -17,7 +17,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 
+//use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mailer\Bridge\Google\Transport\GmailSmtpTransport;
 
 class UserController extends AbstractController
 {
@@ -262,6 +267,29 @@ class UserController extends AbstractController
         ]);
     }
 
+
+    /**
+     * @Route("/email")
+     */
+    public function sendEmail(MailerInterface $mailer)
+    {
+        //$transport = new GmailSmtpTransport('latambouillerestaurant@gmail.com', 'Restaurant12345&');
+        //$mailer = new Mailer($transport);
+        $email = (new Email())
+            ->from('latambouillerestaurant@gmail.com')
+            ->to('ow.charlon@gmail.com')
+            //->cc('cc@example.com')
+            //->bcc('bcc@example.com')
+            //->replyTo('fabien@example.com')
+            //->priority(Email::PRIORITY_HIGH)
+            ->subject('La tambouille tenvoie ce mail automatique depuis son application de fifou ;)')
+            ->text('Sending emails is fun again!')
+            ->html('<p>See Twig integration for better HTML integration!</p>');
+
+        $mailer->send($email);
+
+        return new JsonResponse("mail envoyé");
+    }
 
 
 }

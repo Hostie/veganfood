@@ -10,8 +10,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Repository\MealRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
-
 use Symfony\Component\HttpFoundation\JsonResponse;
+
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mailer\Bridge\Google\Transport\GmailSmtpTransport;
 
 class CartController extends AbstractController
 {
@@ -86,9 +89,9 @@ class CartController extends AbstractController
 
 
      /**
-     * @Route("/panier/order", name="cart_remove")
+     * @Route("/panier/order", name="cart_order")
      */
-    public function order(SessionInterface $session, UserInterface $user, MealRepository $productRepository){
+    public function order(SessionInterface $session, UserInterface $user, MealRepository $productRepository, MailerInterface $mailer){
 
         $panier = $session -> get('panier', []);  //Récuperation du panier.
 
@@ -133,7 +136,19 @@ class CartController extends AbstractController
             }
             $manager -> flush(); 
 
+            
+            $email = (new Email())
+            ->from('latambouillerestaurant@gmail.com')
+            ->to($user->getEmail())
+            //->cc('cc@example.com')
+            //->bcc('bcc@example.com')
+            //->replyTo('fabien@example.com')
+            //->priority(Email::PRIORITY_HIGH)
+            ->subject('Confirmation de votre commande La Tambouille.')
+            ->text("Nous vous confirmons votre achat d'un total de " .$total ."euros.")
+            ->html('<p>See Twig integration for better HTML integration!</p>');
 
+        $mailer->send($email);
             
         }
 
