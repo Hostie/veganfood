@@ -5,13 +5,17 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Command;
 use App\Entity\Meal;
 use App\Entity\User;
+use App\Entity\Restaurant;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Repository\MealRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
-
 use Symfony\Component\HttpFoundation\JsonResponse;
+
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mailer\Bridge\Google\Transport\GmailSmtpTransport;
 
 class CartController extends AbstractController
 {
@@ -86,9 +90,9 @@ class CartController extends AbstractController
 
 
      /**
-     * @Route("/panier/order", name="cart_remove")
+     * @Route("/panier/order", name="cart_order")
      */
-    public function order(SessionInterface $session, UserInterface $user, MealRepository $productRepository){
+    public function order(SessionInterface $session, UserInterface $user, MealRepository $productRepository, MailerInterface $mailer){
 
         $panier = $session -> get('panier', []);  //Récuperation du panier.
 
@@ -100,10 +104,12 @@ class CartController extends AbstractController
             ];
         }  
 
-        $total = 0;  //Calcul du cout total du panier.
+        $total = 0;  //Calcul du cout total du panier et récuperation de l'id du restaurant.
+        $idRestaurant = new Restaurant;
         foreach($panierEnrichi as $item){
             $totalItem = $item['product'] -> getPrice() * $item['quantity'];
             $total += $totalItem;
+            $idRestaurant = $item['product'] -> getIdRestaurant();
         }
         
         if ( $user->getWallet() > $total)  //Si l'utilisateur peut payer.
@@ -122,6 +128,8 @@ class CartController extends AbstractController
             $command-> setDate(new \DateTime());
             $command-> setPrice($total);
             $command-> setIdUser($user);
+            $command-> setStatus(false);
+            $command-> setIdRestaurant2($idRestaurant);
             //$commandArray = [];
             foreach($panierEnrichi as $item){
                 for ( $i = 1; $i <= $item['quantity']; $i++){
@@ -133,7 +141,19 @@ class CartController extends AbstractController
             }
             $manager -> flush(); 
 
+            
+            $email = (new Email())
+            ->from('latambouillerestaurant@gmail.com')
+            ->to($user->getEmail())
+            //->cc('cc@example.com')
+            //->bcc('bcc@example.com')
+            //->replyTo('fabien@example.com')
+            //->priority(Email::PRIORITY_HIGH)
+            ->subject('Confirmation de votre commande La Tambouille.')
+            ->text("Nous vous confirmons votre achat d'un total de " .$total ."euros.")
+            ->html('<p>See Twig integration for better HTML integration!</p>');
 
+            $mailer->send($email);
             
         }
 

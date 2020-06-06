@@ -62,9 +62,16 @@ class Restaurant
      */
     private $id_meal;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Command::class, mappedBy="id_restaurant2", orphanRemoval=true)
+     */
+    private $commands2;
+
     public function __construct()
     {
         $this->id_meal = new ArrayCollection();
+        $this->id_commands = new ArrayCollection();
+        $this->commands2 = new ArrayCollection();
     }
 
     
@@ -244,6 +251,37 @@ class Restaurant
                 // set the owning side to null (unless already changed)
                 if ($idMeal->getIdRestaurant() === $this) {
                     $idMeal->setIdRestaurant(null);
+                }
+            }
+
+            return $this;
+        }
+
+        /**
+         * @return Collection|Command[]
+         */
+        public function getCommands2(): Collection
+        {
+            return $this->commands2;
+        }
+
+        public function addCommands2(Command $commands2): self
+        {
+            if (!$this->commands2->contains($commands2)) {
+                $this->commands2[] = $commands2;
+                $commands2->setIdRestaurant2($this);
+            }
+
+            return $this;
+        }
+
+        public function removeCommands2(Command $commands2): self
+        {
+            if ($this->commands2->contains($commands2)) {
+                $this->commands2->removeElement($commands2);
+                // set the owning side to null (unless already changed)
+                if ($commands2->getIdRestaurant2() === $this) {
+                    $commands2->setIdRestaurant2(null);
                 }
             }
 

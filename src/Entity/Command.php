@@ -40,6 +40,17 @@ class Command
      */
     private $id_meal;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $status;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Restaurant::class, inversedBy="commands2")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $id_restaurant2;
+
     public function __construct()
     {
         $this->id_meal = new ArrayCollection();
@@ -113,6 +124,30 @@ class Command
                 $idMeal->setIdCommand(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(bool $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getIdRestaurant2(): ?Restaurant
+    {
+        return $this->id_restaurant2;
+    }
+
+    public function setIdRestaurant2(?Restaurant $id_restaurant2): self
+    {
+        $this->id_restaurant2 = $id_restaurant2;
 
         return $this;
     }
