@@ -52,22 +52,47 @@ class CartController extends AbstractController
      /**
      * @Route("/panier/add/{id}", name="cart_add")
      */
-    public function add($id,  SessionInterface $session) {
+    public function add($id,  SessionInterface $session, MealRepository $productRepository) {
         
         //surcouche tableau (add, remove etc trop bien)
         //rec   up du panier, vide à la base 
+        $newMealId = $id;
+
         $panier = $session ->get('panier', []);
-
-        //si mon panier contient dejà le produit 
-        if(!empty($panier[$id])){
-            //tu rajoute 1 à la quantité 
-            $panier[$id]++;
-        }else{
-            //sinon tu le set à 1
-            $panier[$id] = 1;
+        $panierEnrichi = [];
+        $RestaurantId = 0;
+        foreach($panier as $id => $quantity){
+            $panierEnrichi[] = [
+                'product' => $productRepository -> find($id),
+                'quantity' => $quantity 
+            ];
         }
-        $session ->set('panier', $panier);
 
+        foreach($panierEnrichi as $item){
+            $RestaurantId = $item['product']-> getIdRestaurant()->getId();
+        }
+        
+        $idOfNew = $productRepository-> find($newMealId)->getIdRestaurant()->getId();
+        
+        if( $RestaurantId == $idOfNew || $RestaurantId == null ){
+            //si mon panier contient dejà le produit 
+            if(!empty($panier[$newMealId])){
+                //tu rajoute 1 à la quantité 
+                $panier[$newMealId]++;
+                
+            }else{
+                //sinon tu le set à 1
+                $panier[$newMealId] = 1;
+            }
+            $session ->set('panier', $panier);
+        }
+        
+        else{
+            $this->addFlash(
+                'notice',
+                'Erreur: Les plats ajoutés au panier doivent provenir du même restaurant.'
+            );
+        }
         return $this ->redirectToRoute("cart_index");
     }
 
@@ -97,19 +122,20 @@ class CartController extends AbstractController
         $panier = $session -> get('panier', []);  //Récuperation du panier.
 
         $panierEnrichi = [];  //Récuperation des plats contenus dans le panier.
+        $commandStringForMail = "";
         foreach($panier as $id => $quantity){
             $panierEnrichi[] = [
                 'product' => $productRepository -> find($id),
                 'quantity' => $quantity 
             ];
         }  
-
         $total = 0;  //Calcul du cout total du panier et récuperation de l'id du restaurant.
         $idRestaurant = new Restaurant;
         foreach($panierEnrichi as $item){
             $totalItem = $item['product'] -> getPrice() * $item['quantity'];
             $total += $totalItem + 2.5;
             $idRestaurant = $item['product'] -> getIdRestaurant();
+            $commandStringForMail = $commandStringForMail . " " . $item['product']-> getName() . " x " . (string)$item['quantity'] . ";";
         }
         
         if ( $user->getWallet() > $total)  //Si l'utilisateur peut payer.
@@ -121,7 +147,6 @@ class CartController extends AbstractController
             $userForWallet-> setWallet($userForWallet->getWallet() - $total);
             $manager -> persist($userForWallet);
             
-            
             $command = new Command;  //Création de la commande et sauvegarde en db de cette derniere.
             $manager -> persist($command);
 
@@ -130,45 +155,39 @@ class CartController extends AbstractController
             $command-> setIdUser($user);
             $command-> setStatus(false);
             $command-> setIdRestaurant2($idRestaurant);
-            //$commandArray = [];
             foreach($panierEnrichi as $item){
                 for ( $i = 1; $i <= $item['quantity']; $i++){
                     $repository = $this -> getDoctrine() -> getRepository(Meal::class);
                     $meal = $repository -> find($item['product']->getId());
-                    //array_push($commandArray, $meal);
                     $command-> addIdMeal($meal);
                 }
             }
             $manager -> flush(); 
 
-            
+            $currentDate = new \DateTime();
+            $currentDate-> add(new \DateInterval("PT1H"));
+            $deliveryDate = $currentDate->format('d/m/y H:i');
             $email = (new Email())
             ->from('latambouillerestaurant@gmail.com')
             ->to($user->getEmail())
-            //->cc('cc@example.com')
-            //->bcc('bcc@example.com')
-            //->replyTo('fabien@example.com')
-            //->priority(Email::PRIORITY_HIGH)
             ->subject('Confirmation de votre commande La Tambouille.')
-            ->text("Nous vous confirmons votre achat d'un total de " .$total ."euros.")
-            ->html('<p>See Twig integration for better HTML integration!</p>');
+            ->text('Nous vous confirmons votre achat pour un total de '. $total . ' euros. Cette commande contient: ' . $commandStringForMail 
+            . ' Vous devriez être livré avant ' . $deliveryDate);
 
             $mailer->send($email);
             $panier = $session -> set('panier', []);
             
+            $panier = $session -> set('panier', []);
         }
 
         else {
-            return new JsonResponse("Pas assez de liquidité");
+            $this->addFlash(
+                'notice',
+                'Erreur: Vous manquez de liquidité, veuillez ajuster cela avant de poursuivre.'
+            );
         }
+
         return $this ->redirectToRoute('cart_index');
-        //return $this ->redirectToRoute('restaurants');
-        //return new JsonResponse(['commandArray' => $commandArray,
-        //    'panier enrichi' => $panierEnrichi,
-        //    'total' => $total,
-        //    'userId' => $user->getUsername(),
-        //    'panier' => $panier
-        //]);
     }
 
 

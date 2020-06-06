@@ -30,6 +30,12 @@
         
     {% endfor %}
 
+    {% for message in app.flashes('notice') %}
+        <br>
+        <div class="alert alert-primary" role="notice">
+            {{ message }}
+        </div>
+    {% endfor %}
 
     </tbody>
     <tfoot>
