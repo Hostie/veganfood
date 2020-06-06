@@ -176,6 +176,7 @@ class CartController extends AbstractController
 
             $mailer->send($email);
             
+            $panier = $session -> set('panier', []);
         }
 
         else {
@@ -184,6 +185,7 @@ class CartController extends AbstractController
                 'Erreur: Vous manquez de liquidité, veuillez ajuster cela avant de poursuivre.'
             );
         }
+
         return $this ->redirectToRoute('cart_index');
     }
 
