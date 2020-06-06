@@ -21,16 +21,12 @@
         </section> 
         
         {% if restaurants %}
-<<<<<<< HEAD
-            <h3> Les restaurants près de chez vous </h3>
-=======
          <div class="near__title">
             <h1 class="near-title">LES RESTAURANTS PRÈS DE CHEZ VOUS</h1>
         </div>
         
         <section class="grid4 grid__resto">
          
->>>>>>> e03af098719f881a361bf88a4837b9831555feaa
             {% for rest in restaurants %}
                 <div class="resto__item">
                 <a href="{{ path('show', {id : rest.id } ) }}"><img class=""  href="" src="{{ asset('/img/restaurant/logo/')  ~ rest.logo }}"></a>

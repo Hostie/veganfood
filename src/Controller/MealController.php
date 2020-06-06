@@ -41,7 +41,7 @@ class MealController extends AbstractController{
 
             $repo = $this -> getDoctrine() -> getRepository(Restaurant::class);
             $restaurant = $repo-> find($user->getIdRestaurant());
-        
+            
             $meal-> setIdRestaurant($restaurant);  
             $manager -> flush();
             return $this ->redirectToRoute('index');
