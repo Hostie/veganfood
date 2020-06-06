@@ -55,17 +55,26 @@ class AdminController extends AbstractController
        ///je recupere tous les infos des restos
         $repository = $this -> getDoctrine() -> getRepository(Restaurant::class);
         $restaurant = $repository -> findAll();
-
+        
         $total = 0;
         foreach($restaurant as $restaurant)
         {
              $total ++;
         }
+      
         $restaurant = $repository -> findAll();
+
+        $commandArray = [];
+       
+        foreach($restaurant as $item){
+            Array_push($commandArray, $item -> getCommands2());
+        }
+
 
         return $this->render('admin/restaurants.html.twig', [
             'restaurants' => $restaurant,
-            'total' => $total
+            'total' => $total,
+            'commands' => $commandArray            
         ]);
     }   
 

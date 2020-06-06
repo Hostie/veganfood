@@ -26,8 +26,11 @@
      <tr>
             <td>{{ rest.name }}</td>
             <td>{{ rest.category }}</td>
-             <td></td>
+    {% for command in commands %}
+             <td>{{ command.id }}</td>
+   
             <td></td>
+    {% endfor %}
             <td>
                 <a  class ="btn btn-success" href ="{{ path('edit_rest', {'id': rest.id}) }}">Modifier</a>
                 <a  class ="btn btn-danger" href ="{{ path('ad_del_rest', {'id': rest.id}) }}">Supprimer</a>

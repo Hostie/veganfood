@@ -154,6 +154,7 @@ class CartController extends AbstractController
             ->html('<p>See Twig integration for better HTML integration!</p>');
 
             $mailer->send($email);
+            $panier = $session -> set('panier', []);
             
         }
 
