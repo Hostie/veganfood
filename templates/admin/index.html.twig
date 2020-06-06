@@ -2,7 +2,31 @@
 
 {% block body %}
 
-c l'admin bitch
+ <main>
+        <div class="admin__title text-center">
+            <h1 class="resto-title">GESTION</h1>
+        </div>
+     
+        <div class="rest__type">
+            <h1 class="resto-title"></h1>
+    </div>
+    
+        <section class="grid grid_item">
+            <div class="admin__item">
+
+                <a href=""><img class=""  href="" src="{{ asset('/img/rest.jpg') }}"></a>
+                <h2>Restaurants</h2>
+                <p></p>
+                <button type="button" onclick="location.href='/admin/restaurants'"class="btn btn-light">Voir les restaurants</button>
+            </div>
+            <div class="admin__item">
+                <a href=""><img class=""  href="" src="{{ asset('/img/users.jpeg') }}"></a>
+                <h2>Users</h2>
+                <p></p>
+                <button type="button" class="btn btn-light" onclick="location.href='/admin/users'">Voir les users</button>
+            </div>
+        </section>
+        
 
 
 
