@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Entity\Restaurant;
 use App\Entity\Meal;
 use App\Entity\Rate;
+use App\Entity\Command;
 use App\Form\SignUpFormType;
 use App\Form\RestaurantFormType;
 use App\Form\LoginFormType;
@@ -53,20 +54,53 @@ class AdminController extends AbstractController
      */
     public function getAllRestaurants()
     {
-       ///je recupere tous les infos des restos
+        //Mise à jour du status de chaque commande.
+        $repository = $this -> getDoctrine()-> getRepository(Command::class);
+        $commands = $repository ->findAll();
+        foreach( $commands as $command){
+            $currentDate = new \DateTime();
+            $commandDate = $command-> getDate();
+            $TestedDate = $commandDate->add(new \DateInterval("PT1H"));
+            //dd($TestedDate);
+            if ($currentDate > $TestedDate){
+                $manager = $this -> getDoctrine() -> getManager();
+                $manager -> persist($command); 
+                $command ->setStatus(true);
+                $manager -> flush();
+            }
+        }
+        
+
+        //je recupere tous les infos des restos
         $repository = $this -> getDoctrine() -> getRepository(Restaurant::class);
-        $restaurant = $repository -> findAll();
+        $restaurants = $repository -> findAll();
 
         $total = 0;
-        foreach($restaurant as $restaurant)
+        $commandNumber = [];
+        $benefitByRestaurant = [];
+        $deliveryPercent = [];
+        foreach($restaurants as $restaurant)
         {
-             $total ++;
+            $total ++;
+            array_push($commandNumber, count($restaurant-> getCommands2()));
+            array_push($benefitByRestaurant, count($restaurant-> getCommands2())*2.5);
+
+            $commands = $restaurant-> getCommands2();
+            $truePercent = 0;
+            foreach ($commands as $command){
+                if ($command->getStatus() == true) {
+                    $truePercent ++;
+                }
+            }
+            array_push($deliveryPercent, round(( $truePercent/count($restaurant-> getCommands2()) )*100, 1) );
         }
-        $restaurant = $repository -> findAll();
 
         return $this->render('admin/restaurants.html.twig', [
-            'restaurants' => $restaurant,
-            'total' => $total
+            'restaurants' => $restaurants,
+            'commandNumber' => $commandNumber,
+            'benefitByRestaurant' => $benefitByRestaurant,
+            'total' => $total,
+            'deliveryPercent' => $deliveryPercent,
         ]);
     }   
 
@@ -141,15 +175,21 @@ class AdminController extends AbstractController
         $users = $repository -> findAll();
 
         $total = 0;
-        foreach($users as $users)
+        $commandNumber = [];
+        $benefitByUser = [];
+        foreach($users as $user)
         {
-             $total ++;
+            $total ++;
+            array_push($commandNumber, count($user-> getIdCommand()));
+            array_push($benefitByUser, count($user-> getIdCommand())*2.5);
         }
-        $users = $repository -> findAll();
+        
 
         return $this->render('admin/users.html.twig', [
             'users' => $users,
-            'total' => $total
+            'total' => $total,
+            'commandNumber' => $commandNumber,
+            'benefitByUser' => $benefitByUser,
         ]);
     }   
 
