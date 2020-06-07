@@ -24,10 +24,7 @@ class Command
      */
     private $price;
 
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $date;
+    
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="id_command")
@@ -51,6 +48,11 @@ class Command
      */
     private $id_restaurant2;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $date;
+
     public function __construct()
     {
         $this->id_meal = new ArrayCollection();
@@ -69,18 +71,6 @@ class Command
     public function setPrice(string $price): self
     {
         $this->price = $price;
-
-        return $this;
-    }
-
-    public function getDate(): ?\DateTimeInterface
-    {
-        return $this->date;
-    }
-
-    public function setDate(\DateTimeInterface $date): self
-    {
-        $this->date = $date;
 
         return $this;
     }
@@ -148,6 +138,18 @@ class Command
     public function setIdRestaurant2(?Restaurant $id_restaurant2): self
     {
         $this->id_restaurant2 = $id_restaurant2;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
 
         return $this;
     }
