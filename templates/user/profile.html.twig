@@ -22,21 +22,23 @@
         <div class="profile__item">
             <h1 class="title__profile" >Commandes</h1>
             {% for command in commands %}
-                <p>{{ command.price }}</p>
-                <p>{{ command.date|date("m/d/Y") }}</p>
+        
+                <p class="mt-5"> Prix de la commande :<strong> {{ command.price }} € </strong></p>
+                <p>Date : {{ command.date|date("m/d/Y") }}</p>
                 {% if command.status == true %}
-                <p> livré <p>
+                <p>Statut : Livré <p>
                 {% else %}
-                <p> en cours de livraison </p>
+                <p class="mb-5">Statut : En cours de livraison </p>
                 {% endif %}
             {% endfor %}
+          
         </div>
 
         <div class="profile__item">
             <h1 class="title__profile" >Commentaires</h1>
             {% for comment in comments %}
-                <p>{{ comment.note }}</p>
-                <p>{{ comment.comment }}</p>
+                <p class="mt-5"><strong>{{ comment.note }}</strong> / 5</p>
+                <p class="mb-5">{{ comment.comment }}</p>
             {% endfor %}
         </div>
     </section>

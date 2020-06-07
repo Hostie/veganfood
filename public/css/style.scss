@@ -3,6 +3,7 @@
 }
 h1{
   font-family: Roboto;
+  margin-top: 50px;;
 }
 
 .grid{
@@ -15,6 +16,7 @@ h1{
   justify-content: center;
 
   margin-top: 3%;
+
   @media(max-width:768px){
     
         display: grid;
@@ -253,50 +255,13 @@ h1{
         font-family: Arial, Helvetica, sans-serif;
         
   }
-  @media(max-width:1024px){
-    
-    p{
-      margin-top: 20px;
-      font-size: 30px;
-    }
-    h2{
-      margin-top: 50px;
-      font-size: 60px;
-    }
-    h3{
-      margin-top: 20px;
-      font-size: 100px;
-    }
-}
   @media(max-width:768px){
     
-    h1{
+    h3{
       font-size: 40px;
     }
-    h3{
-      margin-top: 20px;
-      font-size: 60px;
-    }
-}
-@media(max-width:576px){
-  margin-top: 0%;
-  margin-bottom: 0%;;
-    display: grid;
-    grid-template-columns: repeat(1,1fr);
-    column-gap: 0px;
-    row-gap: 0px;
-    margin-left: 0px;
-    margin-right: 0px;
-    h1{
-      font-size: 30px;
-    }
-    img{
-      margin-top: 100px;;
-    }
-    h3{
-      margin-top: 20px;
-      font-size: 40px;
-    }
+    
+
 }
 
 
@@ -633,10 +598,15 @@ th{
   }
   @media(max-width:1024px){
     
-    font-size: 25px;
-      
+    font-size: 20px;
     
     }
+    @media(max-width:576px){
+    
+      font-size: 15px;
+        
+      
+      }
   
 }
 .btn-primary{

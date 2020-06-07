@@ -4,6 +4,7 @@
 
 h1 {
   font-family: Roboto;
+  margin-top: 50px;
 }
 
 .grid {
@@ -241,48 +242,8 @@ h1 {
   font-weight: 600;
   font-family: Arial, Helvetica, sans-serif;
 }
-@media (max-width: 1024px) {
-  .resto__item p, .plat__item p {
-    margin-top: 20px;
-    font-size: 30px;
-  }
-  .resto__item h2, .plat__item h2 {
-    margin-top: 50px;
-    font-size: 60px;
-  }
-  .resto__item h3, .plat__item h3 {
-    margin-top: 20px;
-    font-size: 100px;
-  }
-}
 @media (max-width: 768px) {
-  .resto__item h1, .plat__item h1 {
-    font-size: 40px;
-  }
   .resto__item h3, .plat__item h3 {
-    margin-top: 20px;
-    font-size: 60px;
-  }
-}
-@media (max-width: 576px) {
-  .resto__item, .plat__item {
-    margin-top: 0%;
-    margin-bottom: 0%;
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    column-gap: 0px;
-    row-gap: 0px;
-    margin-left: 0px;
-    margin-right: 0px;
-  }
-  .resto__item h1, .plat__item h1 {
-    font-size: 30px;
-  }
-  .resto__item img, .plat__item img {
-    margin-top: 100px;
-  }
-  .resto__item h3, .plat__item h3 {
-    margin-top: 20px;
     font-size: 40px;
   }
 }
@@ -463,7 +424,7 @@ h1 {
 }
 
 .comment__item {
-  display: none;
+  display: block;
   height: 30vh;
   width: 100%;
   right: 50%;
@@ -571,7 +532,12 @@ th {
 }
 @media (max-width: 1024px) {
   .btn {
-    font-size: 25px;
+    font-size: 20px;
+  }
+}
+@media (max-width: 576px) {
+  .btn {
+    font-size: 15px;
   }
 }
 
