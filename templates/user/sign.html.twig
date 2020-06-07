@@ -1,28 +1,25 @@
-{% extends 'base.html.twig' %}  
+{% extends 'base.html.twig' %}
 {% block body %}
 
-<div class="wrapper fadeInDown">
-			<div id="formContent">
-
-				<form action="{{ path('login_check') }}" method="post" class="form-example">
-					<div class="form-group">
-						<label for="name">Username:
-						</label>
-						<input type="text" name="_username" value="{{ lastUsername }}" required>
-					</div>
-					<div class="form-group">
-						<label for="password">Password:</label>
-						<input type="password" name="_password" required>
-					</div>
-
-					<div class="form-group">
-						<input type="submit" value="Login">
-					</div>
-			
-
-				</div>
-			</div>
-
-
+<div class="container text-center mb-5">
+	<h1>SE CONNECTER</h1>
+</div>
+<div class="container mt-5">
+	<form action="{{ path('login_check') }}" method="post">
+		<div class="form-group">
+			<label for="exampleInputEmail1">Username</label>
+			<input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+				placeholder="username" name="_username" value="{{ lastUsername }}" required>
+		</div>
+		<div class="form-group">
+			<label for="exampleInputPassword1">Password</label>
+			<input type="password" name="_password" required class="form-control" id="exampleInputPassword1"
+				placeholder="Password">
+		</div>
+		<div class="container text-right mt-5">
+			<button type="submit" value="Login" class="btn btn-primary">Submit</button>
+		</div>
+	</form>
+</div>
 
 {% endblock %}

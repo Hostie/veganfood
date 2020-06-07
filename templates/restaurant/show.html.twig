@@ -22,15 +22,31 @@
                 <p>{{ m.description }}</p>
                 <p class="__price">{{ m.price }} euros</p>
 
-                    <button class="btn btn-light w-100" id={{ m.id }} onclick="getComment(this.id); displayComment(this.id)">Voir les commentaires</button>
+                    <button class="btn btn-light w-100" id="{{ m.id }}" onclick="getComment(this.id); displayComment(this.id)">Voir les commentaires</button>
 
                     <section class="comment__item" id="commentItem{{ m.id }}">
 
                         <section class="__commentSection" id="commentSection{{ m.id }}">
-                            <div class="__commentList" id="commentList{{ m.id }}"></div>
+                            <div class="__commentList text-center" id="commentList{{ m.id }}"></div>
 
                             {% if app.user %}
-                            <div class="__commentForm">
+
+
+                            <form class="form-inline">
+                                <input type="text" class="__commentInput form-control m-3" id="__commentInput{{ m.id }}" placeholder="Commentaire">
+                                 <select name="rateValue" class="custom-select m-3" size="1" id="__rateInput{{ m.id }}">
+                                    <option selected>Note</option>
+                                    <option >1</option>
+                                    <option >2</option>
+                                    <option>3</option>
+                                    <option >4</option>
+                                    <option>5</option>
+                                </select>
+                                <button class="__commentSubmit btn btn-primary m-3" type="submit" id="{{ m.id }}" onclick="AddComment(this.id)">Submit</button>
+                                </form>
+
+
+                            {# <div class="__commentForm">
                                 <input type="text" class="__commentInput" id="__commentInput{{ m.id }}" placeholder="Ajouter un commentaire"></input>
         
                                 <form class="__commentRate">
@@ -48,14 +64,14 @@
                                 <button class="__commentSubmit">
                                     <img class="fit-picture" src="{{ asset('/img/comment/send.svg') }}" alt="Send new comment" id="{{ m.id }}" onclick="AddComment(this.id)">
                                 </button>
-                            </div>
+                            </div> #}
                             {% else %}
                                 <div>Connecte toi pour laisser un commentaire.<div>
                             {% endif %}
                         </section>
                     </section>
 
-                <a  class ="btn btn-success" href ="{{ path('cart_add', {'id': m.id}) }}">Ajouter</a>
+                <a  class ="btn btn-warning mt-5    " href ="{{ path('cart_add', {'id': m.id}) }}">Ajouter</a>
                 
             </div>
             {% endfor %}

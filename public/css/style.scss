@@ -21,8 +21,8 @@ h1{
         grid-template-columns: repeat(1,1fr);
         column-gap: 30px;
         row-gap: 30px;
-        margin-left: 10px;
-        margin-right: 10px;
+        margin-left: 0px;
+        margin-right: 0px;
         
     
   }
@@ -31,8 +31,11 @@ h1{
         grid-template-columns: repeat(1,1fr);
         column-gap: 30px;
         row-gap: 30px;
-        margin-left: 10px;
-        margin-right: 10px;
+        margin-left: 0px;
+        margin-right: 0px;
+        h1{
+          font-size: 20px;
+        }
   }
 }
 
@@ -46,6 +49,20 @@ h1{
   justify-content: center;
 
   margin-top: 3%;
+  @media(max-width:1024px){
+    
+    display: grid;
+    grid-template-columns: repeat(1,1fr);
+    column-gap: 30px;
+    row-gap: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+    h3{
+      font-size: 80px;
+    }
+    
+
+}
   @media(max-width:768px){
     
         display: grid;
@@ -155,7 +172,17 @@ h1{
 }
 
 
+.__title{
 
+  @media(max-width:768px){
+      font-size: 40px;
+}
+@media(max-width:576px){
+
+      font-size: 30px;
+
+}
+}
 
 
 .rest__title, .engagement__title, .near__title{
@@ -166,7 +193,29 @@ h1{
     margin-top: 200px;
     font-size: 50px;
   }
+  @media(max-width:768px){
+    h1{
+      font-size: 40px;
+      margin-bottom: 20px;
+    }
+}
+@media(max-width:576px){
+
+  h1{
+    font-size: 35px;
+    margin-bottom: 50px;
   }
+}
+@media(max-width:360px){
+
+  h1{
+    font-size: 30px;
+    margin-bottom: 50px;
+  }
+}
+
+
+}
   
 
 
@@ -204,21 +253,50 @@ h1{
         font-family: Arial, Helvetica, sans-serif;
         
   }
+  @media(max-width:1024px){
+    
+    p{
+      margin-top: 20px;
+      font-size: 30px;
+    }
+    h2{
+      margin-top: 50px;
+      font-size: 60px;
+    }
+    h3{
+      margin-top: 20px;
+      font-size: 100px;
+    }
+}
   @media(max-width:768px){
     
     h1{
       font-size: 40px;
     }
-    
-
+    h3{
+      margin-top: 20px;
+      font-size: 60px;
+    }
 }
 @media(max-width:576px){
+  margin-top: 0%;
+  margin-bottom: 0%;;
     display: grid;
     grid-template-columns: repeat(1,1fr);
-    column-gap: 30px;
-    row-gap: 30px;
-    margin-left: 10px;
-    margin-right: 10px;
+    column-gap: 0px;
+    row-gap: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    h1{
+      font-size: 30px;
+    }
+    img{
+      margin-top: 100px;;
+    }
+    h3{
+      margin-top: 20px;
+      font-size: 40px;
+    }
 }
 
 
@@ -263,7 +341,7 @@ h1{
   @media(max-width:768px){
     
     h1{
-      font-size: 40px;
+      font-size: 30px;
     }
     
 
@@ -275,6 +353,10 @@ h1{
     row-gap: 30px;
     margin-left: 10px;
     margin-right: 10px;
+    h1{
+      font-size: 30px;
+    }
+    
 }
 
 
@@ -391,6 +473,12 @@ h1{
 ._img{
   width: 30%;
   margin:40px;
+  @media(max-width:768px){
+    
+  width:25%;
+    
+  
+  }
 }
 
 
@@ -416,6 +504,13 @@ h1{
   input{
     width: 300px;
   
+  }
+  @media(max-width:576px){
+
+    input{
+      width: 200px;
+    
+    }
   }
 }
 
@@ -498,74 +593,60 @@ th{
   background-color: lightyellow;
 }
 
-.commentitem {
+.comment__item {
   height: 25vh;
-  width: 100%;
-  background-color: transparent;
-  padding: 0 2% 2%;
-  display: none;
-}
-.commentSection{
-  height: 88%;
-  width: 100%;
-  background-color: transparent;
-  padding: 0.5%;
+   width: 100%;
+   background-color: transparent;
+      padding: 0 2% 2%;
+ display: none;
+ h1{
+   font-size: 20px;
+   color:black;
+ }
 }
 
-.commentList {
-  height: 70%;
-  width: 100%;
-  padding: 10px;
-  background-color: transparent;
-  overflow: auto;
+
+.__comment{
+  text-align: center;
+  h1{
+    font-size: 20px;
+    color:black;
+  }
+  h3{
+    font-size: 15px;
+    color:black;
+  }
 }
 
-.commentForm {
-  height: 25%;
-  width: 100;
-  background-color: transparent;
-}
-.commentInput {
-  height: auto;
-  width: 60%;
-  display: inline-block;
+.__commentSection{
+
 }
 
-.commentRate {
-  height: auto;
-  width: 15%;
-  display: inline-block;
+.btn{
+  margin-top:10px;
+  @media(max-width:300px){
+    
+    
+    margin-top:100px;
+    margin-bottom:100px;
+  
+  }
+  @media(max-width:1024px){
+    
+    font-size: 25px;
+      
+    
+    }
+  
 }
-
-.commentSubmit {
-  height: auto;
-  width: 8%;
-  display: inline-block;
-  padding:0;
-  background-color: transparent;
-  border: transparent;
-}
-
-.comment{
-  height: auto;
-  width: 90%;
-  background-color: aqua;
-  border-radius: 10px;
-  color: red;
-  margin: 10px;
-  padding-top: 10px;
-  padding-left: 10px;
-}
-
-.comment h1{
-  font-size: 1.2em;
-  color: red;
-}
-
-.comment h3{
-  font-size: 1.2em;
-  text-align: right;
-}
-.__commentList{
-  overflow: auto;
+.btn-primary{
+  margin-top:10px;
+  @media(max-width:300px){
+    
+    
+    margin-top:100px;
+    margin-bottom:100px;
+  
+  }
+  
 }

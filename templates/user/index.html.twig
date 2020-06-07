@@ -6,7 +6,7 @@
     <section class="container__search text-center" >
 
         <div class="input-group input-group-l">
-        <h1>Votre aventure culinaire commence ici </h1>
+        <h1 class="__title">Votre aventure culinaire commence ici </h1>
         <form action="#" method="post">
             <input type="text" placeholder="Entrez votre code postal" name="zipcode"></input>
             <button type="submit">Miam</button>
@@ -22,7 +22,7 @@
         
         {% if restaurants %}
          <div class="near__title">
-            <h1 class="near-title">LES RESTAURANTS PRÈS DE CHEZ VOUS</h1>
+            <h1 class="near-title __title">LES RESTAURANTS PRÈS DE CHEZ VOUS</h1>
         </div>
         
         <section class="grid4 grid__resto">
@@ -38,39 +38,39 @@
         {% endif %}
         </section>
         <div class="rest__title">
-            <h1 class="resto-title">NOS RESTAURANTS</h1>
+            <h1 class="resto-title __title">NOS RESTAURANTS</h1>
         </div>
 
         <section class="grid grid__resto">
     
             <div onclick="location.href='{{ path('getRestaurantCategory', {cat: 'Europeen'}) }}'"  class="resto__item euro">
-              <h1>EUROPÉEN</h1>
+              <h1 class="__title">EUROPÉEN</h1>
             </div>
 
            
              <div onclick="location.href='{{ path('getRestaurantCategory', {cat: 'Asiatique'}) }}'" class="resto__item asia">
                 
-                <h1>ASIATIQUE</h1>
+                <h1 class="__title">ASIATIQUE</h1>
                 </div>
               
 
             <div onclick="location.href='{{ path('getRestaurantCategory', {cat: 'Americain'}) }}'"  class="resto__item usa">
-               <h1>AMÉRICAIN</h1>
+               <h1 class="__title">AMÉRICAIN</h1>
             </div>
 
             <div  onclick="location.href='{{ path('getRestaurantCategory', {cat: 'Vegan'}) }}'" class="resto__item vegan">
-                <h1>VEGAN</h1>
+                <h1 class="__title">VEGAN</h1>
             </div>
 
 
             <div onclick="location.href='{{ path('getRestaurantCategory', {cat: 'Français'}) }}'"  class="resto__item fra">
-              <h1>FRANÇAIS</h1>
+              <h1 class="__title">FRANÇAIS</h1>
             </div>
 
            
              <div onclick="location.href='{{ path('getRestaurantCategory', {cat: 'Italien'}) }}'" class="resto__item italie">
                 
-                <h1>ITALIEN</h1>
+                <h1 class="__title">ITALIEN</h1>
                 </div>
               
                
@@ -80,13 +80,13 @@
         </section>
 
         <div class="engagement__title">
-            <h1 class="engagement-title">NOS ENGAGEMENTS</h1>
+            <h1 class="engagement-title __title">NOS ENGAGEMENTS</h1>
         </div>
         
          <section class="grid">
         
             <div class="__logos">
-            <img class="_img" src="{{ asset('/img/logo.png')}}">*
+            <img class="_img" src="{{ asset('/img/logo.png')}}">
             
             <img class="_img" src="{{ asset('/img/bio.png')}}">
             </div>
