@@ -20,9 +20,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
-use Symfony\Component\Mailer\Bridge\Google\Transport\GmailSmtpTransport;
 
 class UserController extends AbstractController
 {
@@ -103,8 +100,6 @@ class UserController extends AbstractController
 
     }
 
-    
-    
 
           /**
      * @Route("/", name="index")
@@ -157,10 +152,6 @@ class UserController extends AbstractController
             }
         }
     }
-
-
-
-
 
         /**
      * @Route("/logout", name="logout")
@@ -227,27 +218,7 @@ class UserController extends AbstractController
         return $response;
     }
     
-    /**
-    * @Route("/test", name="test")
-    */
-    public function test(?UserInterface $user)
-    {
-        $repository = $this -> getDoctrine()-> getRepository(Command::class);
-        $commands = $repository ->findAll();
-        foreach( $commands as $command){
-            $currentDate = new \DateTime();
-            $commandDate = $command-> getDate();
-            $TestedDate = $commandDate->add(new \DateInterval("PT1H"));
-            //dd($TestedDate);
-            if ($currentDate > $TestedDate){
-                $manager = $this -> getDoctrine() -> getManager();
-                $manager -> persist($command); 
-                $command ->setStatus(true);
-                $manager -> flush();
-            }
-        }
 
-    }
      /**
      * @Route("profile{id}/delete", name="delete")
      */
@@ -266,30 +237,5 @@ class UserController extends AbstractController
             'user' => $user
         ]);
     }
-
-
-    /**
-     * @Route("/email")
-     */
-    public function sendEmail(MailerInterface $mailer)
-    {
-        //$transport = new GmailSmtpTransport('latambouillerestaurant@gmail.com', 'Restaurant12345&');
-        //$mailer = new Mailer($transport);
-        $email = (new Email())
-            ->from('latambouillerestaurant@gmail.com')
-            ->to('ow.charlon@gmail.com')
-            //->cc('cc@example.com')
-            //->bcc('bcc@example.com')
-            //->replyTo('fabien@example.com')
-            //->priority(Email::PRIORITY_HIGH)
-            ->subject('La tambouille tenvoie ce mail automatique depuis son application de fifou ;)')
-            ->text('Sending emails is fun again!')
-            ->html('<p>See Twig integration for better HTML integration!</p>');
-
-        $mailer->send($email);
-
-        return new JsonResponse("mail envoyé");
-    }
-
 
 }

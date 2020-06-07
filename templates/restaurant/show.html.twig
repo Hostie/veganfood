@@ -61,17 +61,21 @@
                                     </select> 
                                 </form>
 
-                                <button class="__commentSubmit">
-                                    <img class="fit-picture" src="{{ asset('/img/comment/send.svg') }}" alt="Send new comment" id="{{ m.id }}" onclick="AddComment(this.id)">
+                                <button class="__commentSubmit" id="{{ m.id }}" onclick="AddComment(this.id)">
+                                    Commenter
                                 </button>
                             </div> #}
                             {% else %}
-                                <div>Connecte toi pour laisser un commentaire.<div>
+                                <div class="alert alert-primary">Connecte toi pour laisser un commentaire.<div>
                             {% endif %}
                         </section>
                     </section>
+<<<<<<< HEAD
 
                 <a  class ="btn btn-warning mt-5    " href ="{{ path('cart_add', {'id': m.id}) }}">Ajouter</a>
+=======
+                <a  class ="btn btn-success" href ="{{ path('cart_add', {'id': m.id}) }}">Ajouter</a>
+>>>>>>> a310dd19d31e546fcbe55810cb44c9a7b22851ea
                 
             </div>
             {% endfor %}
