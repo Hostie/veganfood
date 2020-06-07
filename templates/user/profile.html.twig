@@ -21,9 +21,23 @@
         
         <div class="profile__item">
             <h1 class="title__profile" >Commandes</h1>
+            {% for command in commands %}
+                <p>{{ command.price }}</p>
+                <p>{{ command.date|date("m/d/Y") }}</p>
+                {% if command.status == true %}
+                <p> livré <p>
+                {% else %}
+                <p> en cours de livraison </p>
+                {% endif %}
+            {% endfor %}
         </div>
+
         <div class="profile__item">
             <h1 class="title__profile" >Commentaires</h1>
+            {% for comment in comments %}
+                <p>{{ comment.note }}</p>
+                <p>{{ comment.comment }}</p>
+            {% endfor %}
         </div>
     </section>
 

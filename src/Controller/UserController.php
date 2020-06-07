@@ -186,8 +186,15 @@ class UserController extends AbstractController
     /**
      * @Route("/profile", name="profile")
      */
-    public function profile(){
-        return $this->render('user/profile.html.twig', []);
+    public function profile(?UserInterface $user){
+
+        $commands = $user->getIdCommand();
+        $comments = $user->getRateId();
+
+        return $this->render('user/profile.html.twig', [
+            'commands' => $commands,
+            'comments' => $comments
+        ]);
     }
 
     /**
