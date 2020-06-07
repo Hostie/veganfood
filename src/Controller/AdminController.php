@@ -2,15 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Entity\Restaurant;
 use App\Entity\Meal;
 use App\Entity\Rate;
 use App\Entity\Command;
 use App\Form\SignUpFormType;
 use App\Form\RestaurantFormType;
+use App\Form\LoginFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\User\UserInterface; 
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -70,13 +73,8 @@ class AdminController extends AbstractController
 
         //je recupere tous les infos des restos
         $repository = $this -> getDoctrine() -> getRepository(Restaurant::class);
-<<<<<<< HEAD
-        $restaurant = $repository -> findAll();
-        
-=======
         $restaurants = $repository -> findAll();
 
->>>>>>> a310dd19d31e546fcbe55810cb44c9a7b22851ea
         $total = 0;
         $commandNumber = [];
         $benefitByRestaurant = [];
@@ -96,15 +94,6 @@ class AdminController extends AbstractController
             }
             array_push($deliveryPercent, round(( $truePercent/count($restaurant-> getCommands2()) )*100, 1) );
         }
-<<<<<<< HEAD
-      
-        $restaurant = $repository -> findAll();
-
-        return $this->render('admin/restaurants.html.twig', [
-            'restaurants' => $restaurant,
-            'total' => $total,
-                 
-=======
 
         return $this->render('admin/restaurants.html.twig', [
             'restaurants' => $restaurants,
@@ -112,7 +101,6 @@ class AdminController extends AbstractController
             'benefitByRestaurant' => $benefitByRestaurant,
             'total' => $total,
             'deliveryPercent' => $deliveryPercent,
->>>>>>> a310dd19d31e546fcbe55810cb44c9a7b22851ea
         ]);
     }   
 
