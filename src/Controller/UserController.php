@@ -5,7 +5,8 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Meal;
 use App\Entity\Rate;
-use APP\Entity\Restaurant;
+use App\Entity\Restaurant;
+use App\Entity\Command;
 use App\Form\SignUpFormType;
 use App\Form\SignUpRestaurantFormType;
 use App\Form\LoginFormType;
@@ -229,23 +230,23 @@ class UserController extends AbstractController
     /**
     * @Route("/test", name="test")
     */
-    public function test(UserInterface $user)
+    public function test(?UserInterface $user)
     {
-        $commands = $user-> getIdCommand();
-        
-        $commandArray = [];
+        $repository = $this -> getDoctrine()-> getRepository(Command::class);
+        $commands = $repository ->findAll();
         foreach( $commands as $command){
-            $items = $command->getIdMeal();
-            foreach( $items as $item ){
-                array_push($commandArray, $item-> getName());
+            $currentDate = new \DateTime();
+            $commandDate = $command-> getDate();
+            $TestedDate = $commandDate->add(new \DateInterval("PT1H"));
+            //dd($TestedDate);
+            if ($currentDate > $TestedDate){
+                $manager = $this -> getDoctrine() -> getManager();
+                $manager -> persist($command); 
+                $command ->setStatus(true);
+                $manager -> flush();
             }
         }
-        
 
-        return $this -> render('user/test.html.twig', [
-            'commands' => $commands,
-            'commandArray' => $commandArray
-        ]);
     }
      /**
      * @Route("profile{id}/delete", name="delete")
