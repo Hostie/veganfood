@@ -2,13 +2,13 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
-use App\Entity\Restaurant;
 use App\Entity\Meal;
 use App\Entity\Rate;
+use App\Entity\User;
+use App\Entity\Restaurant;
+use App\Form\LoginFormType;
 use App\Form\SignUpFormType;
 use App\Form\RestaurantFormType;
-use App\Form\LoginFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -64,11 +64,7 @@ class AdminController extends AbstractController
       
         $restaurant = $repository -> findAll();
 
-        $commandArray = [];
        
-        foreach($restaurant as $item){
-            Array_push($commandArray, $item -> getCommands2());
-        }
 
 
         return $this->render('admin/restaurants.html.twig', [
