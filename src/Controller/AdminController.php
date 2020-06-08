@@ -92,7 +92,10 @@ class AdminController extends AbstractController
                     $truePercent ++;
                 }
             }
-            array_push($deliveryPercent, round(( $truePercent/count($restaurant-> getCommands2()) )*100, 1) );
+            if ($commands != null){
+                array_push($deliveryPercent, round(( $truePercent/count($restaurant-> getCommands2()) )*100, 1) );
+            }
+        
         }
 
         return $this->render('admin/restaurants.html.twig', [
