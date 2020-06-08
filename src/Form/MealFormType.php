@@ -18,7 +18,7 @@ class MealFormType extends AbstractType
             ->add('file', FileType::Class, array('required' => false))
             ->add('price')
             ->add('description')
-            ->add('AddMeal', SubmitType::class, [
+            ->add('Ajouter', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-large btn-info mt-2 mb-2'
                 ]

@@ -29,7 +29,7 @@ class RestaurantFormType extends AbstractType
                     'Français' => 'Français',
                     'Italien' => 'Italien',
                 ]])
-            ->add('Ajoutay', SubmitType::class, [
+            ->add('Ajouter', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-large btn-info mt-2 mb-2'
                 ]

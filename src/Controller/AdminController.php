@@ -86,6 +86,7 @@ class AdminController extends AbstractController
             array_push($benefitByRestaurant, count($restaurant-> getCommands2())*2.5);
 
             $commands = $restaurant-> getCommands2();
+         
             $truePercent = 0;
             foreach ($commands as $command){
                 if ($command->getStatus() == true) {
@@ -98,10 +99,12 @@ class AdminController extends AbstractController
         
         }
 
+        $totalMoneyEarned = array_sum($benefitByRestaurant);
         return $this->render('admin/restaurants.html.twig', [
             'restaurants' => $restaurants,
             'commandNumber' => $commandNumber,
             'benefitByRestaurant' => $benefitByRestaurant,
+            'totalMoneyEarned' => $totalMoneyEarned,
             'total' => $total,
             'deliveryPercent' => $deliveryPercent,
         ]);

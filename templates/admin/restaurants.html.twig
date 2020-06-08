@@ -5,52 +5,52 @@
 
 
 
-<h1>Nombre total de restaurants : {{ total }} </h1>
+<h1 class="text-left m-5">Nombre total de restaurants : {{ total }} </h1>
+<h1 class="text-right m-5">Revenus totaux générés : {{ totalMoneyEarned }} € </h1>
 
+<div class="container-fluid mt-5 ">
+    <table class="table ">
+        <thread>
+            <tr>
+                <th>Nom</th>
+                <th>Catégorie</th>
+                <th>Commandes passées</th>
+                <th>Revenus générés</th>
+                <th>Commandes livrées</th>
+                <th>Actions</th>
+                <th></th>
+            </tr>
+        </thread>
+        <tbody>
 
-<div class="container-fluid mt-5">
-<table class="table">
-    <thread>
-        <tr>
-            <th>Nom</th>
-            <th>Catégorie</th>
-             <th>Commandes passées</th>
-            <th>Revenus générés</th>
-            <th>Commandes livrées</th>
-            <th>Actions</th>
-            <th></th>
-        </tr>
-    </thread>   
-    <tbody>
+            {% set count = 0 %}
+            {% for rest in restaurants %}
+            <tr>
+                <td>{{ rest.name }}</td>
+                <td>{{ rest.category }}</td>
+                <td>{{ commandNumber[count] }}</td>
+                <td>{{ benefitByRestaurant[count] }}</td>
+                <td>{{ deliveryPercent[count] }} %</td>
+                <td>
+                    <a class="btn btn-success" href="{{ path('edit_rest', {'id': rest.id}) }}">Modifier</a>
+                    <a class="btn btn-danger" href="{{ path('ad_del_rest', {'id': rest.id}) }}">Supprimer</a>
+                </td>
+            </tr>
+            {% set count = count + 1 %}
+            {% endfor %}
 
-   {% set count = 0 %}
-   {% for rest in restaurants %}
-     <tr>
-            <td>{{ rest.name }}</td>
-            <td>{{ rest.category }}</td>
-            <td>{{ commandNumber[count] }}</td>
-            <td>{{ benefitByRestaurant[count] }}</td>
-            <td>{{ deliveryPercent[count] }} %</td>
-            <td>
-                <a  class ="btn btn-success" href ="{{ path('edit_rest', {'id': rest.id}) }}">Modifier</a>
-                <a  class ="btn btn-danger" href ="{{ path('ad_del_rest', {'id': rest.id}) }}">Supprimer</a>
-            </td>
-        </tr>
-    {% set count = count + 1 %}   
-    {% endfor %}
-
-    </tbody>
-
-
-
-</table>
-  <a  class ="btn btn-light" href ="{{ path('admin_create_admin') }}">Créer un Restaurant</a>
-
-<div>
-  
+        </tbody>
 
 
 
+    </table>
+    <a class="btn btn-light" href="{{ path('admin_create_admin') }}">Créer un Restaurant</a>
+
+    <div>
 
 
-{% endblock %}
+
+
+
+
+        {% endblock %}

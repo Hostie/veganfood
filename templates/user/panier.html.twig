@@ -4,7 +4,7 @@
 
 <h1 class="text-center mb-5">PANIER</h1>
 {% if items | length > 0  %}
-<div class="container mt-5">
+<div class="container mt-5 text-center">
 <table class="table">
     <thread>
         <tr>
@@ -50,10 +50,12 @@
 
     </tfoot>
 
-
+  
 
 </table>
-
+    <div class"container text-right">
+        <button type="button" onclick="location.href='{{ path('cart_order' ) }}'" class="btn btn-warning text-right" >Commander</button>
+    </div>
 <div>
 {% else %}
     <div class="container text-center mt-5" style="margin-top:40px;">

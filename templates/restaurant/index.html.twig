@@ -2,33 +2,34 @@
 
 {% block body %}
 
-    <main>
-        <div class="rest__title">
-            <h1 class="resto-title">NOS RESTAURANTS</h1>
-        </div>
-     
-        <div class="rest__type">
-            <h1 class="resto-title"></h1>
+<main>
+    <div class="rest__title">
+        <h1 class="resto-title">NOS RESTAURANTS</h1>
     </div>
-    
-        <section class="grid grid_item">
-        
-            {% for rest in restaurants %}
-            <div class="resto__item">
-                <a href="{{ path('show', {id : rest.id } ) }}"><img class=""  href="" src="{{ asset('/img/restaurant/logo/')  ~ rest.logo }}"></a>
-                <h2>{{ rest.name }}</h2>
-                <p>{{ rest.description }} </p>
-                <button type="button" class="btn btn-warning " onclick="location.href='{{ path('show', {id : rest.id } ) }}'">Voir les plats</button>
-            </div>
-            {% endfor %}
-        </section>
-        
-    </main>
-    <footer class="footer__main">
-        <p>Copyright La Tambouile ©️ 2020</p>
-    </footer>
+
+    <div class="rest__type">
+        <h1 class="resto-title"></h1>
+    </div>
+
+    <section class="grid grid_item">
+
+        {% for rest in restaurants %}
+        <div class="resto__item">
+            <a href="{{ path('show', {id : rest.id } ) }}"><img class="" href=""
+                    src="{{ asset('/img/restaurant/logo/')  ~ rest.logo }}"></a>
+            <h2>{{ rest.name }}</h2>
+            <p>{{ rest.description }} </p>
+            <button type="button" class="btn btn-warning "
+                onclick="location.href='{{ path('show', {id : rest.id } ) }}'">Voir les plats</button>
+        </div>
+        {% endfor %}
+    </section>
+
+</main>
+<footer class="footer__main">
+    <p>Copyright La Tambouile ©️ 2020</p>
+</footer>
 
 </body>
 
 {% endblock %}
-

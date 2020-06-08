@@ -1,67 +1,81 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <main>
-            <div class="resto__item">
-                
-                <h3>{{ restaurant.name }}</h3>
-                
-                {{ restaurant.zipcode }}
-                {{ restaurant.address }}
-                
-            </div>
+<main>
+    <div class="resto__item">
 
-            
+        <h3>{{ restaurant.name }}</h3>
 
-            <section class="grid2 grid_item">
-            {% for m in meals %}
-            
-            <div class="plat__item">
-               <a href=""><img class="plat_img"   href="" src="{{ asset('/img/restaurant/logo/')  ~ m.photo }}"></a>
-                <h2> {{ m.name }}</h2>
-                <p>{{ m.description }}</p>
-                <p class="__price">{{ m.price }} euros</p>
+        {{ restaurant.zipcode }}
+        {{ restaurant.address }}
 
-                    <button class="btn btn-light w-100" id="{{ m.id }}" onclick="getComment(this.id); displayComment(this.id)">Voir les commentaires</button>
-
-                    <section class="comment__item" id="commentItem{{ m.id }}">
-
-                        <section class="__commentSection" id="commentSection{{ m.id }}">
-                            <div class="__commentList text-center" id="commentList{{ m.id }}"></div>
-
-                            {% if app.user %}
+    </div>
 
 
-                            <form class="form-inline">
-                                <input type="text" class="__commentInput form-control m-3" id="__commentInput{{ m.id }}" placeholder="Commentaire">
-                                 <select name="rateValue" class="custom-select m-3" size="1" id="__rateInput{{ m.id }}">
-                                    <option selected>Note</option>
-                                    <option >1</option>
-                                    <option >2</option>
-                                    <option>3</option>
-                                    <option >4</option>
-                                    <option>5</option>
-                                </select>
-                                <button class="__commentSubmit btn btn-primary m-3" type="submit" id="{{ m.id }}" onclick="AddComment(this.id)">Submit</button>
-                                </form>
+
+    <section class="grid2 grid_item">
+        {% for m in meals %}
+
+        <div class="plat__item">
+            <a href=""><img class="plat_img" href="" src="{{ asset('/img/restaurant/logo/')  ~ m.photo }}"></a>
+            <h2> {{ m.name }}</h2>
+            <p>{{ m.description }}</p>
+            <p class="__price">{{ m.price }} euros</p>
+
+            <button class="btn btn-light w-100" id="{{ m.id }}"
+                onclick="getComment(this.id); displayComment(this.id)">Voir les commentaires</button>
+
+            <section class="comment__item" id="commentItem{{ m.id }}">
+
+                <section class="__commentSection" id="commentSection{{ m.id }}">
+                    <div class="__commentList text-center" id="commentList{{ m.id }}"></div>
+
+                    {% if app.user %}
 
 
-                            {% else %}
-                                <div class="alert alert-primary">Connecte toi pour laisser un commentaire.<div>
+                    <form class="form-inline">
+                        <input type="text" class="__commentInput form-control m-3" id="__commentInput{{ m.id }}"
+                            placeholder="Commentaire">
+                        <select name="rateValue" class="custom-select m-3" size="1" id="__rateInput{{ m.id }}">
+                            <option selected>Note</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                        <button class="__commentSubmit btn btn-primary m-3" type="submit" id="{{ m.id }}"
+                            onclick="AddComment(this.id)">Submit</button>
+                    </form>
+
+
+                    {% else %}
+                    <div class="alert alert-primary">Connecte toi pour laisser un commentaire.<div>
                             {% endif %}
-                        </section>
-                    </section>
-
-                <a  class ="btn btn-warning mt-5    " href ="{{ path('cart_add', {'id': m.id}) }}">Ajouter</a>
-                
-            </div>
-            {% endfor %}
+                </section>
             </section>
 
-    </main>
-    <footer class="footer__main">
-        <p>Copyright La Tambouile ©️ 2020</p>
-    </footer>
+            <a class="btn btn-warning mt-5    " href="{{ path('cart_add', {'id': m.id}) }}">Ajouter</a>
+    
+            {% if is_granted('ROLE_ADMIN') %}
+                <a class="btn btn-success mt-5 m-1" href="{{ path('meal_edit', {'id': m.id}) }}">Modifier</a>
+                <a class="btn btn-danger mt-5  m-1 " href="{{ path('meal_delete', {'id': m.id}) }}">Supprimer</a>
+            {% endif %}
+        </div>
+
+        
+        {% endfor %}
+    </section>
+    {% if is_granted('ROLE_ADMIN') %}
+            <div class="container text-center mt-5">
+                <a class="btn btn-primary mt-5 m-1 text-center" href="{{ path('addMeal') }}">Ajouter un plat</a>
+            </div>
+            {% endif %}
+
+</main>
+<footer class="footer__main">
+    <p>Copyright La Tambouile ©️ 2020</p>
+</footer>
 
 </body>
 

@@ -1,120 +1,126 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 
-    <main>
+<main>
 
-    <section class="container__search text-center" >
+    <section class="container__search text-center">
 
         <div class="input-group input-group-l">
-        <h1 class="__title">Votre aventure culinaire commence ici </h1>
-        <form action="#" method="post">
-            <input type="text" placeholder="Entrez votre code postal" name="zipcode"></input>
-            <button type="submit">Miam</button>
-        </form> 
-        {% for message in app.flashes('notice') %}
+            <h1 class="__title">Votre aventure culinaire commence ici </h1>
+            <form action="#" method="post">
+                <input type="text" placeholder="Entrez votre code postal" name="zipcode"></input>
+                <button type="submit">Miam</button>
+            </form>
+            {% for message in app.flashes('notice') %}
             <br>
             <div class="alert alert-primary" role="notice">
                 {{ message }}
             </div>
-        {% endfor %}
-        </div>
-        </section> 
-        
-        {% if restaurants %}
-         <div class="near__title">
-            <h1 class="near-title __title">LES RESTAURANTS PRÈS DE CHEZ VOUS</h1>
-        </div>
-        
-        <section class="grid4 grid__resto">
-         
-            {% for rest in restaurants %}
-                <div class="resto__item">
-                <a href="{{ path('show', {id : rest.id } ) }}"><img class=""  href="" src="{{ asset('/img/restaurant/logo/')  ~ rest.logo }}"></a>
-                <h2>{{ rest.name }}</h2>
-                <p>{{ rest.description }} </p>
-                <button type="button" class="btn btn-warning" onclick="location.href='{{ path('show', {id : rest.id } ) }}'">Voir les plats</button>
-                </div>
             {% endfor %}
+        </div>
+    </section>
+
+    {% if restaurants %}
+    <div class="near__title">
+        <h1 class="near-title __title">LES RESTAURANTS PRÈS DE CHEZ VOUS</h1>
+    </div>
+
+    <section class="grid4 grid__resto">
+
+        {% for rest in restaurants %}
+        <div class="resto__item">
+            <a href="{{ path('show', {id : rest.id } ) }}"><img class="" href=""
+                    src="{{ asset('/img/restaurant/logo/')  ~ rest.logo }}"></a>
+            <h2>{{ rest.name }}</h2>
+            <p>{{ rest.description }} </p>
+            <button type="button" class="btn btn-warning"
+                onclick="location.href='{{ path('show', {id : rest.id } ) }}'">Voir les plats</button>
+        </div>
+        {% endfor %}
         {% endif %}
-        </section>
-        <div class="rest__title">
-            <h1 class="resto-title __title">NOS RESTAURANTS</h1>
+    </section>
+    <div class="rest__title">
+        <h1 class="resto-title __title">NOS RESTAURANTS</h1>
+    </div>
+
+    <section class="grid grid__resto">
+
+        <div onclick="location.href='{{ path('getRestaurantCategory', {cat: 'Europeen'}) }}'" class="resto__item euro">
+            <h1 class="__title">EUROPÉEN</h1>
         </div>
 
-        <section class="grid grid__resto">
-    
-            <div onclick="location.href='{{ path('getRestaurantCategory', {cat: 'Europeen'}) }}'"  class="resto__item euro">
-              <h1 class="__title">EUROPÉEN</h1>
-            </div>
 
-           
-             <div onclick="location.href='{{ path('getRestaurantCategory', {cat: 'Asiatique'}) }}'" class="resto__item asia">
-                
-                <h1 class="__title">ASIATIQUE</h1>
-                </div>
-              
+        <div onclick="location.href='{{ path('getRestaurantCategory', {cat: 'Asiatique'}) }}'" class="resto__item asia">
 
-            <div onclick="location.href='{{ path('getRestaurantCategory', {cat: 'Americain'}) }}'"  class="resto__item usa">
-               <h1 class="__title">AMÉRICAIN</h1>
-            </div>
-
-            <div  onclick="location.href='{{ path('getRestaurantCategory', {cat: 'Vegan'}) }}'" class="resto__item vegan">
-                <h1 class="__title">VEGAN</h1>
-            </div>
-
-
-            <div onclick="location.href='{{ path('getRestaurantCategory', {cat: 'Français'}) }}'"  class="resto__item fra">
-              <h1 class="__title">FRANÇAIS</h1>
-            </div>
-
-           
-             <div onclick="location.href='{{ path('getRestaurantCategory', {cat: 'Italien'}) }}'" class="resto__item italie">
-                
-                <h1 class="__title">ITALIEN</h1>
-                </div>
-              
-               
-        
-            
-
-        </section>
-
-        <div class="engagement__title">
-            <h1 class="engagement-title __title">NOS ENGAGEMENTS</h1>
+            <h1 class="__title">ASIATIQUE</h1>
         </div>
-        
-         <section class="grid">
-        
-            <div class="__logos">
+
+
+        <div onclick="location.href='{{ path('getRestaurantCategory', {cat: 'Americain'}) }}'" class="resto__item usa">
+            <h1 class="__title">AMÉRICAIN</h1>
+        </div>
+
+        <div onclick="location.href='{{ path('getRestaurantCategory', {cat: 'Vegan'}) }}'" class="resto__item vegan">
+            <h1 class="__title">VEGAN</h1>
+        </div>
+
+
+        <div onclick="location.href='{{ path('getRestaurantCategory', {cat: 'Français'}) }}'" class="resto__item fra">
+            <h1 class="__title">FRANÇAIS</h1>
+        </div>
+
+
+        <div onclick="location.href='{{ path('getRestaurantCategory', {cat: 'Italien'}) }}'" class="resto__item italie">
+
+            <h1 class="__title">ITALIEN</h1>
+        </div>
+
+
+
+
+
+    </section>
+
+    <div class="engagement__title">
+        <h1 class="engagement-title __title">NOS ENGAGEMENTS</h1>
+    </div>
+
+    <section class="grid">
+
+        <div class="__logos">
             <img class="_img" src="{{ asset('/img/logo.png')}}">
-            
+
             <img class="_img" src="{{ asset('/img/bio.png')}}">
-            </div>
+        </div>
 
-            <div class="__engagements">
-                <p>La Tambouille ©️ s'engage à vous fournir des restaurants qui travaillent avec les
-                produits les plus bios du monde. Même votre jardin n'est pas aussi bio, nos viandes sont toutes vegans
-                et certifiées Halal (même nos côtes de porc, oui on sait, on est balèzes).
-                Nous travaillons avec des maraîchers et des éleveurs passionés, délicats, qui tuent et exploitent avec tendresse. C'est ça aussi La Tambouille ©️
-                beaucoup de love dans un monde en constante dépression.</p><br>
-                <p>Soucieux de notre impact environnemental nous avons décidé que tous nos livreurs payés au smic
-                rouleraient en YZ électrique. Ce qui permettra de laisser moins d'empreinte carbone et de dealer entre deux courses
-                sans que le bruit du moteur alerte les shmidts. Chez La Tambouille ©️  nous souhaitons valoriser le travail de nos jeunes
-                issus des quartiers difficiles en leur permettant de travailler plus pour gagner plus. Ainsi plus vous commandez
-                moins vous faites de mal à la planète et en plus vous financer le business de nos jeunes talents.</p><br>
-                <p>Ne dit-on pas que nous sommes ce qu'on nous mangeons ? Alors rachetez vous une conscience et commandez nos plats au plus vite</p>
-                
-            </div>
+        <div class="__engagements">
+            <p>La Tambouille ©️ s'engage à vous fournir des restaurants qui travaillent avec les
+                produits les plus bios du monde. Même un jardin en plein confinement n'est pas aussi bio. Les
+                restaurants que nous proposons sont tous engagés
+                dans la lutte pour le réchauffement climatique et pour le bien être animal.
+                Nous travaillons avec des maraîchers et des éleveurs passionés, délicats, qui tuent et exploitent avec
+                tendresse. C'est ça aussi La Tambouille ©️
+                beaucoup d'amour dans un monde en constante dépression.</p><br>
+            <p>Soucieux de notre impact environnemental nous avons décidé que tous nos livreurs
+                rouleraient en scooter électrique. Ce qui permettra de laisser moins d'empreinte carbone. Chez La
+                Tambouille ©️ à chaque commande passée,
+                c'est un arbre planté au Sahel. Ainsi plus vous commandez
+                moins vous faites de mal à la planète et en plus vous participer à la reforestation de la flore du
+                désert.</p><br>
+            <p>Ne dit-on pas que nous sommes ce qu'on nous mangeons ? Alors rachetez vous une conscience et commandez
+                nos plats au plus vite</p>
 
-        </section>
+        </div>
 
-    
+    </section>
 
-    </main>
 
-    <footer class="footer__main">
-        <p>Copyright La Tambouile ©️ 2020</p>
-    </footer>
+
+</main>
+
+<footer class="footer__main">
+    <p>Copyright La Tambouile ©️ 2020</p>
+</footer>
 
 </body>
 
@@ -201,6 +207,3 @@
 </section> ---!>
 
 {% endblock %}
-
-
-

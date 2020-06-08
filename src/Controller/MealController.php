@@ -19,10 +19,13 @@ class MealController extends AbstractController{
 
     /**
     * @Route("/meal/add/", name="addMeal")
+    * @Route("/meal/{id}/edit", name="meal_edit")
     */
-    public function addMeal(Request $request, UserInterface $user){
-
-        $meal = new Meal;
+    public function addMeal(Meal $meal = null,Request $request, UserInterface $user){
+        if(!$meal){
+            $meal = new Meal;
+        }
+       
 
         $form = $this -> createForm(MealFormType::Class, $meal);
 
@@ -44,7 +47,7 @@ class MealController extends AbstractController{
             
             $meal-> setIdRestaurant($restaurant);  
             $manager -> flush();
-            return $this ->redirectToRoute('index');
+           
             
         }
 
@@ -52,4 +55,27 @@ class MealController extends AbstractController{
             'MealForm' => $form -> createView()
         ]);
     }
+
+    /**
+    * @Route("meal/{id}/delete", name="meal_delete")
+    */
+   public function deleteMeal($id){
+       
+       $manager = $this -> getDoctrine() -> getManager();
+       $meal = $manager -> find(Meal::class, $id);
+       $manager -> remove($meal);
+       $manager -> flush();
+
+
+       $repository = $this -> getDoctrine()-> getRepository(Meal::class);
+       $meal = $repository ->findAll();
+
+       $this -> addFlash('Suppresion', 'Plat : '. $id. 'supprimé');
+       return $this ->redirectToRoute('show', ['id' => $id]);
+            
+       return $this -> render('restaurant/show.html.twig',[
+           'meals' => $meal
+       ]);
+   }
+
 }
